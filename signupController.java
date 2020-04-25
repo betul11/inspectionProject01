@@ -9,6 +9,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import sample.database.databaseHandler;
+import sample.model.user;
 
 public class signupController {
 
@@ -41,9 +42,21 @@ public class signupController {
 
     @FXML
     void initialize() {
-        databaseHandler databaseHandler = new databaseHandler();
-        signupSignupButton.setOnAction(event -> { databaseHandler.signupUser(signupFirstnameText.getText(),signupLastnameText.getText(),signupEmailText.getText(),
-         signupPasswordText.getText(),signupDOBdatepicker.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")),signupCertificateDatePicker.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+        signupSignupButton.setOnAction(event -> {
+            createUser();
+
+
         });
     }
+
+    private void createUser(){
+        databaseHandler databaseHandler = new databaseHandler();
+        user user = new user(signupFirstnameText.getText(),signupLastnameText.getText(),signupEmailText.getText(),
+                signupPasswordText.getText(),signupDOBdatepicker.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")),signupCertificateDatePicker.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+         databaseHandler.signupUser(user);
+
+    }
+
+
+
 }

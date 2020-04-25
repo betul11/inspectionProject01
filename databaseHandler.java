@@ -1,9 +1,8 @@
 package sample.database;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import sample.model.user;
+
+import java.sql.*;
 
 
 public class databaseHandler extends configs {
@@ -20,7 +19,7 @@ public class databaseHandler extends configs {
   }
 
     //write
-    public void signupUser(String firstname, String lastname, String email, String password, String DOB, String CertExp){
+    public void signupUser(user user){
      String insert = "INSERT INTO "+Const.USERS_TABLE+"("+Const.USERS_FIRSTNAME+","
               +Const.USERS_LASTNAME+","+Const.USERS_EMAIL+","+Const.USERS_PASSWORD+","+Const.USERS_DOB
               +","+Const.USERS_CERTIFICATE+")"+"VALUES(?,?,?,?,?,?)";
@@ -31,12 +30,12 @@ public class databaseHandler extends configs {
         try {
             PreparedStatement preparedStatement = getDbConnection().prepareStatement(insert);
 
-            preparedStatement.setString(1,firstname);
-            preparedStatement.setString(2,lastname);
-            preparedStatement.setString(3,email);
-            preparedStatement.setString(4,password);
-            preparedStatement.setString(5,DOB);
-            preparedStatement.setString(6,CertExp);
+            preparedStatement.setString(1,user.getFirstName());
+            preparedStatement.setString(2,user.getLastName());
+            preparedStatement.setString(3,user.getEmail());
+            preparedStatement.setString(4,user.getPassword());
+            preparedStatement.setString(5,user.getDOB());
+            preparedStatement.setString(6,user.getCertificateExpiration());
             preparedStatement.executeUpdate();
 
 
@@ -46,6 +45,32 @@ public class databaseHandler extends configs {
             e.printStackTrace();
         }
     }
+
+    public ResultSet getUser (user user){
+      ResultSet resultSet = null;
+      if(!user.getEmail().equals("") || !user.getPassword().equals("")){
+      String query = "SELECT * FROM "+ Const.USERS_TABLE+ " WHERE "+ Const.USERS_EMAIL+ "=?" + " AND " + Const.USERS_PASSWORD
+              + "=?";
+          try {
+              PreparedStatement preparedStatement = getDbConnection().prepareStatement(query);
+              preparedStatement.setString(1, user.getEmail());
+              preparedStatement.setString(2, user.getPassword());
+              resultSet = preparedStatement.executeQuery();
+
+          } catch (SQLException throwables) {
+              throwables.printStackTrace();
+          } catch (ClassNotFoundException e) {
+              e.printStackTrace();
+          }
+
+      }else{
+          System.out.println("Please enter your correct login information!");
+      }
+
+      return resultSet;
+    }
+
+
     //read
 
 
