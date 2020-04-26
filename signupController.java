@@ -9,6 +9,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
+import java.util.Vector;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -56,12 +58,17 @@ public class signupController {
         });
     }
 
+
+
     private void createUser(){
         databaseHandler databaseHandler = new databaseHandler();
 
-            user user = new user(signupFirstnameText.getText(), signupLastnameText.getText(), signupEmailText.getText(),
+         user user = new user(signupFirstnameText.getText(), signupLastnameText.getText(), signupEmailText.getText(),
                     signupPasswordText.getText(), signupDOBdatepicker.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")), signupCertificateDatePicker.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
-            databaseHandler.signupUser(user);
+
+         databaseHandler.signupUser(user);
+
+
 
 
     }

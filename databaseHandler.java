@@ -20,6 +20,9 @@ public class databaseHandler extends configs {
 
     //write
     public void signupUser(user user){
+
+
+
      String insert = "INSERT INTO "+Const.USERS_TABLE+"("+Const.USERS_FIRSTNAME+","
               +Const.USERS_LASTNAME+","+Const.USERS_EMAIL+","+Const.USERS_PASSWORD+","+Const.USERS_DOB
               +","+Const.USERS_CERTIFICATE+")"+"VALUES(?,?,?,?,?,?)";
@@ -71,6 +74,10 @@ public class databaseHandler extends configs {
     }
 
 
+
+
+
+
     //update
     public void updateRow (user oldUser){
 
@@ -107,6 +114,7 @@ public class databaseHandler extends configs {
             PreparedStatement preparedStatement = null;
             try {
                 preparedStatement = getDbConnection().prepareStatement(query);
+
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
             }
