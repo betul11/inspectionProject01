@@ -7,6 +7,7 @@ import com.jfoenix.controls.JFXTextField;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 import java.util.Vector;
@@ -16,6 +17,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import sample.animations.shaker;
 import sample.database.databaseHandler;
 import sample.model.user;
 
@@ -52,7 +54,6 @@ public class signupController {
     void initialize() {
         signupSignupButton.setOnAction(event -> {
             createUser();
-            showLoginScreen();
 
 
         });
@@ -66,7 +67,29 @@ public class signupController {
          user user = new user(signupFirstnameText.getText(), signupLastnameText.getText(), signupEmailText.getText(),
                     signupPasswordText.getText(), signupDOBdatepicker.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")), signupCertificateDatePicker.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
 
-         databaseHandler.signupUser(user);
+        try {
+            boolean decision = databaseHandler.checkIfExists(user);
+            if(decision==false){
+                databaseHandler.signupUser(user);
+                showLoginScreen();
+
+
+            }else{
+
+                shaker emailShaker = new shaker(signupEmailText);
+                emailShaker.shake();
+
+
+            }
+
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
 
 
 
