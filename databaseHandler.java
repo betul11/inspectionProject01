@@ -75,19 +75,20 @@ public class databaseHandler extends configs {
       return resultSet;
     }
 
-    public boolean checkIfExists (user user) throws SQLException, ClassNotFoundException {
+   /* public int checkIfExists (user user) throws SQLException, ClassNotFoundException {
 
      String checker = ("SELECT * FROM users WHERE email =? ");
         PreparedStatement preparedStatement = getDbConnection().prepareStatement(checker);
 
         preparedStatement.setString(1,user.getEmail());
-        boolean b = preparedStatement.execute();
+        String b = preparedStatement.executeQuery().toString();
+        if(b.contains())
 
 
       return b;
 
 
-    }
+    }*/
 
 
 

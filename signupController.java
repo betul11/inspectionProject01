@@ -67,31 +67,8 @@ public class signupController {
          user user = new user(signupFirstnameText.getText(), signupLastnameText.getText(), signupEmailText.getText(),
                     signupPasswordText.getText(), signupDOBdatepicker.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")), signupCertificateDatePicker.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
 
-        try {
-            boolean decision = databaseHandler.checkIfExists(user);
-            if(decision==false){
-                databaseHandler.signupUser(user);
-                showLoginScreen();
-
-
-            }else{
-
-                shaker emailShaker = new shaker(signupEmailText);
-                emailShaker.shake();
-
-
-            }
-
-
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-
-
-
+        databaseHandler.signupUser(user);
+        showLoginScreen();
 
 
     }
