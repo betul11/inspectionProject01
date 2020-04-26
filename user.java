@@ -1,5 +1,7 @@
 package sample.model;
 
+import java.time.LocalDate;
+
 public class user {
     private String firstName;
     private String lastName;
@@ -12,7 +14,10 @@ public class user {
 
     }
 
-
+    public user(String email, String password) {
+        this.email = email;
+        this.password = password;
+    }
 
     public user(String firstName, String lastName, String email, String password, String DOB, String certificateExpiration) {
         this.firstName = firstName;
@@ -55,12 +60,13 @@ public class user {
         this.password = password;
     }
 
-    public String getDOB() {
-        return DOB;
-    }
+
 
     public void setDOB(String DOB) {
         this.DOB = DOB;
+    }
+    public String getDOB(){
+        return this.DOB;
     }
 
     public String getCertificateExpiration() {
@@ -70,4 +76,5 @@ public class user {
     public void setCertificateExpiration(String certificateExpiration) {
         this.certificateExpiration = certificateExpiration;
     }
+
 }

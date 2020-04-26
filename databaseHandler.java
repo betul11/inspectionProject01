@@ -71,7 +71,59 @@ public class databaseHandler extends configs {
     }
 
 
-    //read
+    //update
+    public void updateRow (user oldUser){
+
+        try {
+            String updateString = "UPDATE users SET firstname = ?, lastname = ?, password = ?, DOB = ?,certificateExpiration = ?" +
+                    " WHERE email = ?";
+
+            PreparedStatement preparedStatement = null;
+            try {
+                preparedStatement = getDbConnection().prepareStatement(updateString);
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+            preparedStatement.setString(1,oldUser.getFirstName());
+            preparedStatement.setString(2,oldUser.getLastName());
+            preparedStatement.setString(3,oldUser.getPassword());
+            preparedStatement.setString(4,oldUser.getDOB());
+            preparedStatement.setString(5,oldUser.getCertificateExpiration());
+            preparedStatement.setString(6,oldUser.getEmail());
+            preparedStatement.executeUpdate();
 
 
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
+
+    public void deleteUser(user oldUser) {
+        try {
+            String query = "DELETE FROM users WHERE email = ? AND password = ?";
+            PreparedStatement preparedStatement = null;
+            try {
+                preparedStatement = getDbConnection().prepareStatement(query);
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+
+
+            preparedStatement.setString(1,oldUser.getEmail());
+            preparedStatement.setString(2,oldUser.getPassword());
+
+            preparedStatement.executeUpdate();
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
+
+
+    }
 }

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXPasswordField?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controller.deleteProfileController">
+   <children>
+      <Label alignment="CENTER" layoutX="-2.0" layoutY="81.0" prefHeight="18.0" prefWidth="250.0" text="Confirm your Email and Password:" />
+      <JFXTextField fx:id="deleteEmailText" layoutX="202.0" layoutY="140.0" prefHeight="26.0" prefWidth="192.0" promptText="email" />
+      <JFXButton fx:id="deleteDeleteButton" layoutX="228.0" layoutY="309.0" prefHeight="26.0" prefWidth="144.0" style="-fx-background-color: #fe5c36;" text="Delete Account" textFill="#ddd7d7" />
+      <AnchorPane layoutY="-1.0" prefHeight="60.0" prefWidth="600.0" style="-fx-background-color: #54afbc;">
+         <children>
+            <JFXButton fx:id="deleteCancelButton" layoutX="534.0" layoutY="14.0" style="-fx-background-color: #434343;" text="Cancel" textFill="#fdfdfd" />
+         </children>
+      </AnchorPane>
+      <JFXPasswordField fx:id="deletePwdText" layoutX="204.0" layoutY="224.0" prefHeight="26.0" prefWidth="192.0" promptText="Password" />
+   </children>
+</AnchorPane>
