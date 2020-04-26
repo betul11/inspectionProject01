@@ -60,6 +60,8 @@ public class databaseHandler extends configs {
               preparedStatement.setString(2, user.getPassword());
               resultSet = preparedStatement.executeQuery();
 
+
+
           } catch (SQLException throwables) {
               throwables.printStackTrace();
           } catch (ClassNotFoundException e) {
@@ -73,7 +75,19 @@ public class databaseHandler extends configs {
       return resultSet;
     }
 
+    public boolean checkIfExists (user user) throws SQLException, ClassNotFoundException {
 
+     String checker = ("SELECT * FROM users WHERE email =? ");
+        PreparedStatement preparedStatement = getDbConnection().prepareStatement(checker);
+
+        preparedStatement.setString(1,user.getEmail());
+        boolean b = preparedStatement.execute();
+
+
+      return b;
+
+
+    }
 
 
 
