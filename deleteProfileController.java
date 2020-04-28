@@ -18,6 +18,9 @@ import sample.animations.shaker;
 import sample.database.databaseHandler;
 import sample.model.user;
 
+//github linki: https://github.com/betul11/inspectionProject01
+
+
 public class deleteProfileController {
 
     @FXML
@@ -66,6 +69,8 @@ public class deleteProfileController {
                 }
                 if(counter==1){
                     deleteAccount();
+                    showLoginScreen();
+
                 }else{
                     shaker emailShaker = new shaker(deleteEmailText);
                     shaker pwdShaker = new shaker(deletePwdText);
@@ -75,7 +80,6 @@ public class deleteProfileController {
             } catch (SQLException e){
                 e.printStackTrace();
             }
-        showLoginScreen();
 
 
         });
@@ -85,8 +89,7 @@ public class deleteProfileController {
     public void deleteAccount() {
         databaseHandler databaseHandler = new databaseHandler();
         user oldUser = new user(deleteEmailText.getText(),deletePwdText.getText());
-        databaseHandler.deleteUser(oldUser);
-
+         databaseHandler.deleteUser(oldUser);
 
     }
 
