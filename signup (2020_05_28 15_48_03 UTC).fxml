@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXDatePicker?>
+<?import com.jfoenix.controls.JFXPasswordField?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controller.signupController">
+   <children>
+      <AnchorPane prefHeight="400.0" prefWidth="700.0">
+         <children>
+            <AnchorPane prefHeight="98.0" prefWidth="700.0" style="-fx-background-color: #54afbc;">
+               <children>
+                  <Label alignment="CENTER" layoutX="2.0" layoutY="31.0" prefHeight="18.0" prefWidth="170.0" text="Add Employee" textFill="#dad5d5">
+                     <font>
+                        <Font size="19.0" />
+                     </font>
+                  </Label>
+               </children>
+            </AnchorPane>
+            <JFXTextField fx:id="signupFirstnameText" layoutX="62.0" layoutY="124.0" prefHeight="26.0" prefWidth="164.0" promptText="First Name" />
+            <JFXTextField fx:id="signupEmailText" layoutX="62.0" layoutY="206.0" prefHeight="26.0" prefWidth="164.0" promptText="Email" />
+            <JFXTextField fx:id="signupLastnameText" layoutX="293.0" layoutY="124.0" prefHeight="26.0" prefWidth="164.0" promptText="Last Name" />
+            <JFXDatePicker fx:id="signupDOBdatepicker" layoutX="293.0" layoutY="206.0" prefHeight="28.0" prefWidth="219.0" promptText="Date of Birth" />
+            <JFXDatePicker fx:id="signupCertificateDatePicker" layoutX="293.0" layoutY="297.0" prefHeight="28.0" prefWidth="219.0" promptText="Certificate's Expiration Date" />
+            <JFXPasswordField fx:id="signupPasswordText" layoutX="62.0" layoutY="297.0" prefHeight="26.0" prefWidth="170.0" promptText="Password" />
+            <JFXButton fx:id="signupSaveButton" layoutX="545.0" layoutY="347.0" prefHeight="26.0" prefWidth="115.0" style="-fx-background-color: #fe5c36;" text="Save" />
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
