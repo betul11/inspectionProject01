@@ -32,8 +32,6 @@ public class deleteProfileController {
     @FXML
     private JFXTextField deleteEmailText;
 
-    @FXML
-    private JFXPasswordField deletePwdText;
 
     @FXML
     private JFXButton deleteDeleteButton;
@@ -55,11 +53,9 @@ public class deleteProfileController {
 
         deleteDeleteButton.setOnAction(event -> {
             String loginText = deleteEmailText.getText().trim();
-            String loginpwd = deletePwdText.getText().trim();
 
             user user = new user();
             user.setEmail(deleteEmailText.getText());
-            user.setPassword(deletePwdText.getText());
             ResultSet userRow = databaseHandler.getUser(user);
             int counter = 0;
 
@@ -69,13 +65,11 @@ public class deleteProfileController {
                 }
                 if(counter==1){
                     deleteAccount();
-                    showLoginScreen();
+                    showMainmenu();
 
                 }else{
                     shaker emailShaker = new shaker(deleteEmailText);
-                    shaker pwdShaker = new shaker(deletePwdText);
                     emailShaker.shake();
-                    pwdShaker.shake();
                 }
             } catch (SQLException e){
                 e.printStackTrace();
@@ -88,7 +82,7 @@ public class deleteProfileController {
 
     public void deleteAccount() {
         databaseHandler databaseHandler = new databaseHandler();
-        user oldUser = new user(deleteEmailText.getText(),deletePwdText.getText());
+        user oldUser = new user(deleteEmailText.getText());
          databaseHandler.deleteUser(oldUser);
 
     }
@@ -109,23 +103,7 @@ public class deleteProfileController {
         stage.show();
 
     }
-    private void showLoginScreen(){
 
-        //take user to login screen
-        deleteDeleteButton.getScene().getWindow().hide();
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("/sample/view/login.fxml"));
-        try{
-            loader.load();
-        }catch (IOException e){
-            e.printStackTrace();
-        }
-        Parent root = loader.getRoot();
-        Stage stage = new Stage();
-        stage.setScene(new Scene(root));
-        stage.show();
-
-    }
 
 
 

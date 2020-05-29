@@ -2,7 +2,6 @@ package sample.controller;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDatePicker;
-import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 
 import java.io.IOException;
@@ -20,6 +19,8 @@ import javafx.stage.Stage;
 import sample.animations.shaker;
 import sample.database.databaseHandler;
 import sample.model.user;
+//github linki: https://github.com/betul11/inspectionProject01
+
 
 public class signupController {
 
@@ -45,15 +46,24 @@ public class signupController {
     private JFXDatePicker signupCertificateDatePicker;
 
     @FXML
-    private JFXPasswordField signupPasswordText;
+    private JFXTextField signupLevelText;
 
     @FXML
-    private JFXButton signupSignupButton;
+    private JFXButton signupSaveButton;
+
+    @FXML
+    private JFXButton signupCancelButton;
 
     @FXML
     void initialize() {
-        signupSignupButton.setOnAction(event -> {
+        signupSaveButton.setOnAction(event -> {
             createUser();
+
+
+        });
+
+        signupCancelButton.setOnAction(event -> {
+            showMainMenu();
 
 
         });
@@ -64,21 +74,21 @@ public class signupController {
     private void createUser(){
         databaseHandler databaseHandler = new databaseHandler();
 
-         user user = new user(signupFirstnameText.getText(), signupLastnameText.getText(), signupEmailText.getText(),
-                    signupPasswordText.getText(), signupDOBdatepicker.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")), signupCertificateDatePicker.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+         user user = new user(signupFirstnameText.getText(), signupLastnameText.getText(), signupEmailText.getText(), signupDOBdatepicker.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")),
+                 signupCertificateDatePicker.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")),signupLevelText.getText());
 
         databaseHandler.signupUser(user);
-        showLoginScreen();
+        
+        showMainMenu();
 
 
     }
 
-    private void showLoginScreen(){
+    private void showMainMenu(){
 
-            //take user to login screen
-            signupSignupButton.getScene().getWindow().hide();
+            signupSaveButton.getScene().getWindow().hide();
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("/sample/view/login.fxml"));
+            loader.setLocation(getClass().getResource("/sample/view/menu.fxml"));
             try{
                 loader.load();
             }catch (IOException e){

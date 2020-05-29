@@ -6,26 +6,27 @@ public class user {
     private String firstName;
     private String lastName;
     private String email;
-    private String password;
     private String DOB;
     private String certificateExpiration;
+    private String level;
+    //github linki: https://github.com/betul11/inspectionProject01
+
 
     public user(){
 
     }
 
-    public user(String email, String password) {
+    public user(String email) {
         this.email = email;
-        this.password = password;
     }
 
-    public user(String firstName, String lastName, String email, String password, String DOB, String certificateExpiration) {
+    public user(String firstName, String lastName, String email, String DOB, String certificateExpiration,String level) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        this.password = password;
         this.DOB = DOB;
         this.certificateExpiration = certificateExpiration;
+        this.level = level;
     }
 
     public String getFirstName() {
@@ -51,14 +52,14 @@ public class user {
     public void setEmail(String email) {
         this.email = email;
     }
-
-    public String getPassword() {
-        return password;
+    public String getLevel() {
+        return level;
+    }
+    public void setLevel(String level) {
+        this.level = level;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+
 
 
 

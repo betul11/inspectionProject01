@@ -23,30 +23,34 @@ public class menuController {
     private JFXButton menuAddReportButton;
 
     @FXML
-    private JFXButton menuEditProfileButton;
+    private JFXButton menuEditEmployeeButton;
 
     @FXML
-    private JFXButton menuDeleteAccountButton;
+    private JFXButton menuAddEmployeeButton;
 
     @FXML
-    private JFXButton menuLogoutButton;
+    private JFXButton menuDeleteEmployeeButton;
+
 
     @FXML
     void initialize() {
-        menuEditProfileButton.setOnAction(event -> {
-            showEditProfile();
+        menuEditEmployeeButton.setOnAction(event -> {
+            showEditScreen();
 
         });
 
-        menuDeleteAccountButton.setOnAction(event -> {
+        menuDeleteEmployeeButton.setOnAction(event -> {
             showDeleteScreen();
+        });
+
+        menuAddEmployeeButton.setOnAction(event -> {
+            showSignUpScreen();
         });
 
 
     }
-    private void showEditProfile(){
-        //take user to main menu screen
-        menuEditProfileButton.getScene().getWindow().hide();
+    private void showEditScreen(){
+        menuEditEmployeeButton.getScene().getWindow().hide();
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/sample/view/edit.fxml"));
         try{
@@ -60,9 +64,8 @@ public class menuController {
         stage.show();
 
     }
-
     private void showDeleteScreen(){
-        menuDeleteAccountButton.getScene().getWindow().hide();
+        menuDeleteEmployeeButton.getScene().getWindow().hide();
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/sample/view/deleteProfile.fxml"));
         try{
@@ -76,7 +79,21 @@ public class menuController {
         stage.show();
 
 
+    }
 
+    private void showSignUpScreen(){
+        menuAddEmployeeButton.getScene().getWindow().hide();
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/sample/view/signup.fxml"));
+        try{
+            loader.load();
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+        Parent root = loader.getRoot();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.show();
 
 
     }

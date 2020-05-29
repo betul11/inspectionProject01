@@ -4,7 +4,7 @@ import sample.model.user;
 
 import java.sql.*;
 
-
+//github linki: https://github.com/betul11/inspectionProject01
 public class databaseHandler extends configs {
   Connection dbConnection;
   public Connection getDbConnection() throws ClassNotFoundException, SQLException {
@@ -24,8 +24,8 @@ public class databaseHandler extends configs {
 
 
      String insert = "INSERT INTO "+Const.USERS_TABLE+"("+Const.USERS_FIRSTNAME+","
-              +Const.USERS_LASTNAME+","+Const.USERS_EMAIL+","+Const.USERS_PASSWORD+","+Const.USERS_DOB
-              +","+Const.USERS_CERTIFICATE+")"+"VALUES(?,?,?,?,?,?)";
+              +Const.USERS_LASTNAME+","+Const.USERS_EMAIL+","+Const.USERS_DOB
+              +","+Const.USERS_CERTIFICATE+",level)"+"VALUES(?,?,?,?,?,?)";
 
 
 
@@ -36,10 +36,13 @@ public class databaseHandler extends configs {
             preparedStatement.setString(1,user.getFirstName());
             preparedStatement.setString(2,user.getLastName());
             preparedStatement.setString(3,user.getEmail());
-            preparedStatement.setString(4,user.getPassword());
-            preparedStatement.setString(5,user.getDOB());
-            preparedStatement.setString(6,user.getCertificateExpiration());
-            preparedStatement.executeUpdate();
+            preparedStatement.setString(4,user.getDOB());
+            preparedStatement.setString(5,user.getCertificateExpiration());
+            preparedStatement.setString(6,user.getLevel());
+
+
+                preparedStatement.executeUpdate();
+
 
 
         } catch (SQLException e) {
@@ -47,17 +50,18 @@ public class databaseHandler extends configs {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
+
+
     }
 
     public ResultSet getUser (user user){
       ResultSet resultSet = null;
-      if(!user.getEmail().equals("") || !user.getPassword().equals("")){
-      String query = "SELECT * FROM "+ Const.USERS_TABLE+ " WHERE "+ Const.USERS_EMAIL+ "=?" + " AND " + Const.USERS_PASSWORD
-              + "=?";
+      if(!user.getEmail().equals("")){
+      String query = "SELECT * FROM "+ Const.USERS_TABLE+ " WHERE "+ Const.USERS_EMAIL+ "=?";
           try {
               PreparedStatement preparedStatement = getDbConnection().prepareStatement(query);
               preparedStatement.setString(1, user.getEmail());
-              preparedStatement.setString(2, user.getPassword());
+
               resultSet = preparedStatement.executeQuery();
 
 
@@ -75,14 +79,14 @@ public class databaseHandler extends configs {
       return resultSet;
     }
 
-   /* public int checkIfExists (user user) throws SQLException, ClassNotFoundException {
+  /* public int checkIfExists (user user) throws SQLException, ClassNotFoundException {
 
-     String checker = ("SELECT * FROM users WHERE email =? ");
+    String checker = ("SELECT * FROM users WHERE email =? ");
         PreparedStatement preparedStatement = getDbConnection().prepareStatement(checker);
 
         preparedStatement.setString(1,user.getEmail());
-        String b = preparedStatement.executeQuery().toString();
-        if(b.contains())
+        String b = preparedStatement.executeQuery();
+
 
 
       return b;
@@ -96,8 +100,11 @@ public class databaseHandler extends configs {
     //update
     public void updateRow (user oldUser){
 
+
+
+
         try {
-            String updateString = "UPDATE users SET firstname = ?, lastname = ?, password = ?, DOB = ?,certificateExpiration = ?" +
+            String updateString = "UPDATE users SET firstname = ?, lastname = ?, DOB = ?,certificateExpiration = ?,level= ?" +
                     " WHERE email = ?";
 
             PreparedStatement preparedStatement = null;
@@ -108,9 +115,9 @@ public class databaseHandler extends configs {
             }
             preparedStatement.setString(1,oldUser.getFirstName());
             preparedStatement.setString(2,oldUser.getLastName());
-            preparedStatement.setString(3,oldUser.getPassword());
-            preparedStatement.setString(4,oldUser.getDOB());
-            preparedStatement.setString(5,oldUser.getCertificateExpiration());
+            preparedStatement.setString(3,oldUser.getDOB());
+            preparedStatement.setString(4,oldUser.getCertificateExpiration());
+            preparedStatement.setString(5,oldUser.getLevel());
             preparedStatement.setString(6,oldUser.getEmail());
             preparedStatement.executeUpdate();
 
@@ -123,9 +130,15 @@ public class databaseHandler extends configs {
     }
 
 
+
+
+
+
+
+
     public void deleteUser(user oldUser) {
         try {
-            String query = "DELETE FROM users WHERE email = ? AND password = ?";
+            String query = "DELETE FROM users WHERE email = ?";
             PreparedStatement preparedStatement = null;
             try {
                 preparedStatement = getDbConnection().prepareStatement(query);
@@ -136,7 +149,6 @@ public class databaseHandler extends configs {
 
 
             preparedStatement.setString(1,oldUser.getEmail());
-            preparedStatement.setString(2,oldUser.getPassword());
 
             preparedStatement.executeUpdate();
 

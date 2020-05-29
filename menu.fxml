@@ -14,12 +14,12 @@
                   <Font size="16.0" />
                </font>
             </JFXButton>
-            <JFXButton fx:id="menuEditProfileButton" layoutX="413.0" layoutY="199.0" prefHeight="30.0" prefWidth="214.0" style="-fx-background-color: #54afbc;" text="Edit Profile" textFill="#f5ecec">
+            <JFXButton fx:id="menuEditEmployeeButton" layoutX="413.0" layoutY="199.0" prefHeight="30.0" prefWidth="214.0" style="-fx-background-color: #54afbc;" text="Edit Employee" textFill="#f5ecec">
                <font>
                   <Font size="16.0" />
                </font>
             </JFXButton>
-            <JFXButton fx:id="menuDeleteAccountButton" layoutX="413.0" layoutY="289.0" prefHeight="30.0" prefWidth="214.0" style="-fx-background-color: #54afbc;" text="Delete Account" textFill="#f5ecec">
+            <JFXButton fx:id="menuDeleteEmployeeButton" layoutX="413.0" layoutY="289.0" prefHeight="30.0" prefWidth="214.0" style="-fx-background-color: #54afbc;" text="Delete Employee" textFill="#f5ecec">
                <font>
                   <Font size="16.0" />
                </font>
@@ -33,7 +33,6 @@
                   </Label>
                </children>
             </AnchorPane>
-            <JFXButton fx:id="menuLogoutButton" layoutX="603.0" layoutY="16.0" prefHeight="26.0" prefWidth="82.0" style="-fx-background-color: #fe5c36;" text="Log out" textFill="#eae5e5" />
             <JFXButton fx:id="menuAddCustomerButton" layoutX="45.0" layoutY="199.0" prefHeight="30.0" prefWidth="213.0" style="-fx-background-color: #54afbc;" text="Add Customer" textFill="#f5ecec">
                <font>
                   <Font size="16.0" />

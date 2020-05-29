@@ -21,6 +21,9 @@ import sample.animations.shaker;
 import sample.database.databaseHandler;
 import sample.model.user;
 
+//github linki: https://github.com/betul11/inspectionProject01
+
+
 public class editController {
 
     @FXML
@@ -42,49 +45,82 @@ public class editController {
     private JFXTextField editCertificateText;
     @FXML
     private JFXTextField editDOBText;
-    @FXML
-    private JFXPasswordField editCurrentPasswordText;
 
-    @FXML
-    private JFXPasswordField editNewPasswordText;
     @FXML
     private JFXButton editCancelButton;
 
     @FXML
     private JFXButton editSaveButton;
-    private sample.database.databaseHandler databaseHandler;
 
+    @FXML
+    private JFXTextField editLevelText;
+
+
+
+    @FXML
+    private JFXButton editSearchButton;
+    private sample.database.databaseHandler databaseHandler;
+    int counter;
+    ResultSet userRow;
 
     @FXML
     void initialize() {
         user user = new user();
 
-        databaseHandler = new databaseHandler();
-        editSaveButton.setOnAction(event -> {
-            user.setEmail(editEmailText.getText());
-            user.setPassword(editCurrentPasswordText.getText());
-            ResultSet userRow = databaseHandler.getUser(user);
 
-            int counter = 0;
+        databaseHandler = new databaseHandler();
+        editSearchButton.setOnAction(event -> {
+            user.setEmail(editEmailText.getText());
+            userRow = databaseHandler.getUser(user);
+
+            counter = 0;
 
             try{
                 while (userRow.next()){
                     counter++;
+                    String firstname = userRow.getString("firstname");
+                    String lastname = userRow.getString("lastname");
+                    String DOB = userRow.getString("DOB");
+                    String Certificate = userRow.getString("certificateExpiration");
+                    String level = userRow.getString("level");
+                    editFirstnameText.setText(firstname);
+                    editLastnameText.setText(lastname);
+                    editDOBText.setText(DOB);
+                    editCertificateText.setText(Certificate);
+                    editLevelText.setText(level);
                 }
+                if(counter==1){
+                    wait();
+                }else{
+                    shaker emailShaker = new shaker(editEmailText);
+                    emailShaker.shake();
+
+                }
+            } catch (SQLException | InterruptedException e){
+                e.printStackTrace();
+            }
+
+    });
+
+
+
+        editSaveButton.setOnAction(event -> {
+
+            try{
+
                 if(counter==1){
                     updateProfile1();
                 }else{
                     shaker emailShaker = new shaker(editEmailText);
-                    shaker pwdShaker = new shaker(editCurrentPasswordText);
                     emailShaker.shake();
-                    pwdShaker.shake();
 
                 }
             } catch (SQLException e){
                 e.printStackTrace();
             }
 
-    });
+        });
+
 
         editCancelButton.setOnAction(event -> {
             showMainmenu();
@@ -95,9 +131,10 @@ public class editController {
 
     public void updateProfile1() throws SQLException {
         databaseHandler databaseHandler = new databaseHandler();
-        user oldUser = new user(editFirstnameText.getText(),editLastnameText.getText(),editEmailText.getText(),
-                editNewPasswordText.getText(),editDOBText.getText(),editCertificateText.getText());
+        user oldUser = new user(editFirstnameText.getText(),editLastnameText.getText(),editEmailText.getText(),editDOBText.getText(),editCertificateText.getText(),
+                editLevelText.getText());
         databaseHandler.updateRow(oldUser);
+        showMainmenu();
 
 
     }
@@ -118,6 +155,8 @@ public class editController {
         stage.show();
 
     }
+
+
 
 
 
