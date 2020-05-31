@@ -31,6 +31,12 @@ public class menuController {
     @FXML
     private JFXButton menuDeleteEmployeeButton;
 
+    @FXML
+    private JFXButton menuAddCustomerButton;
+
+    @FXML
+    private JFXButton menuAddEquipmentButton;
+
 
     @FXML
     void initialize() {
@@ -47,8 +53,70 @@ public class menuController {
             showSignUpScreen();
         });
 
+        menuAddCustomerButton.setOnAction(event -> {
+            showCustomerScreen();
+        });
+
+        menuAddReportButton.setOnAction(event -> {
+            showPickerScreen();
+        });
+
+        menuAddEquipmentButton.setOnAction(event -> {
+            showAddEquipmentScreen();
+        });
+
+
+
 
     }
+
+    private void showPickerScreen() {
+        menuAddReportButton.getScene().getWindow().hide();
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/sample/view/picker.fxml"));
+        try{
+            loader.load();
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+        Parent root = loader.getRoot();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.show();
+    }
+
+    private void showAddEquipmentScreen(){
+        menuAddEquipmentButton.getScene().getWindow().hide();
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/sample/view/addEquipment.fxml"));
+        try{
+            loader.load();
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+        Parent root = loader.getRoot();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.show();
+
+    }
+
+    private void showCustomerScreen() {
+        menuAddCustomerButton.getScene().getWindow().hide();
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/sample/view/customer.fxml"));
+        try{
+            loader.load();
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+        Parent root = loader.getRoot();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.show();
+
+    }
+
     private void showEditScreen(){
         menuEditEmployeeButton.getScene().getWindow().hide();
         FXMLLoader loader = new FXMLLoader();
