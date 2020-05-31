@@ -1,5 +1,7 @@
 package sample.database;
 
+import sample.model.customer;
+import sample.model.equipment;
 import sample.model.user;
 
 import java.sql.*;
@@ -18,6 +20,32 @@ public class databaseHandler extends configs {
       return dbConnection;
   }
 
+
+    public ResultSet getUser (user user){
+        ResultSet resultSet = null;
+        if(!user.getEmail().equals("")){
+            String query = "SELECT * FROM "+ Const.USERS_TABLE+ " WHERE "+ Const.USERS_EMAIL+ "=?";
+            try {
+                PreparedStatement preparedStatement = getDbConnection().prepareStatement(query);
+                preparedStatement.setString(1, user.getEmail());
+
+                resultSet = preparedStatement.executeQuery();
+
+
+
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+
+        }else{
+            System.out.println("Please enter your correct login information!");
+        }
+
+        return resultSet;
+    }
+
     //write
     public void signupUser(user user){
 
@@ -26,8 +54,6 @@ public class databaseHandler extends configs {
      String insert = "INSERT INTO "+Const.USERS_TABLE+"("+Const.USERS_FIRSTNAME+","
               +Const.USERS_LASTNAME+","+Const.USERS_EMAIL+","+Const.USERS_DOB
               +","+Const.USERS_CERTIFICATE+",level)"+"VALUES(?,?,?,?,?,?)";
-
-
 
 
         try {
@@ -53,48 +79,6 @@ public class databaseHandler extends configs {
 
 
     }
-
-    public ResultSet getUser (user user){
-      ResultSet resultSet = null;
-      if(!user.getEmail().equals("")){
-      String query = "SELECT * FROM "+ Const.USERS_TABLE+ " WHERE "+ Const.USERS_EMAIL+ "=?";
-          try {
-              PreparedStatement preparedStatement = getDbConnection().prepareStatement(query);
-              preparedStatement.setString(1, user.getEmail());
-
-              resultSet = preparedStatement.executeQuery();
-
-
-
-          } catch (SQLException throwables) {
-              throwables.printStackTrace();
-          } catch (ClassNotFoundException e) {
-              e.printStackTrace();
-          }
-
-      }else{
-          System.out.println("Please enter your correct login information!");
-      }
-
-      return resultSet;
-    }
-
-  /* public int checkIfExists (user user) throws SQLException, ClassNotFoundException {
-
-    String checker = ("SELECT * FROM users WHERE email =? ");
-        PreparedStatement preparedStatement = getDbConnection().prepareStatement(checker);
-
-        preparedStatement.setString(1,user.getEmail());
-        String b = preparedStatement.executeQuery();
-
-
-
-      return b;
-
-
-    }*/
-
-
 
 
     //update
@@ -126,14 +110,30 @@ public class databaseHandler extends configs {
             e.printStackTrace();
         }
 
-
     }
 
+    public void addCustomer(customer customer){
+
+        String insert = "INSERT INTO customer (companyName, address) VALUES(?,?)";
 
 
+        try {
+            PreparedStatement preparedStatement = getDbConnection().prepareStatement(insert);
+
+            preparedStatement.setString(1,customer.getCompanyName());
+            preparedStatement.setString(2,customer.getAddress());
 
 
+            preparedStatement.executeUpdate();
 
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+
+    }
 
 
     public void deleteUser(user oldUser) {
@@ -161,4 +161,93 @@ public class databaseHandler extends configs {
 
 
     }
+
+    public void addJobNo(customer customer) {
+        String insert = "INSERT INTO orderno (orderNo,company) VALUES(?,?)";
+
+        try {
+            PreparedStatement preparedStatement = getDbConnection().prepareStatement(insert);
+
+            preparedStatement.setString(1,customer.getOrderNo());
+            preparedStatement.setString(2,customer.getCompanyName());
+
+
+
+            preparedStatement.executeUpdate();
+
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+
+
+    }
+
+    public void addOffer(customer customer) {
+        String insert = "INSERT INTO offerno (offerNo,company) VALUES(?,?)";
+
+        try {
+            PreparedStatement preparedStatement = getDbConnection().prepareStatement(insert);
+
+            preparedStatement.setString(1,customer.getOfferNo());
+            preparedStatement.setString(2,customer.getCompanyName());
+
+
+
+            preparedStatement.executeUpdate();
+
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+
+
+    }
+
+    public ResultSet getAllUsers() throws SQLException, ClassNotFoundException {
+        String query = "SELECT * FROM "+ Const.USERS_TABLE;
+        PreparedStatement preparedStatement = getDbConnection().prepareStatement(query);
+        ResultSet resultSet = preparedStatement.executeQuery();
+
+         return resultSet;
+
+
+    }
+
+    public void addEquipment(equipment equipment) {
+        String insert = "INSERT INTO equipment (equipment,poleDistance,carrierMedium,magTech,lightIntensity,lightDistance) VALUES(?,?,?,?,?,?)";
+
+        try {
+            PreparedStatement preparedStatement = getDbConnection().prepareStatement(insert);
+
+            preparedStatement.setString(1,equipment.getEquipment());
+            preparedStatement.setString(2,equipment.getPoleDistance());
+            preparedStatement.setString(3,equipment.getCarrierMedium());
+            preparedStatement.setString(4,equipment.getMagTech());
+            preparedStatement.setString(5,equipment.getLightIntensity());
+            preparedStatement.setString(6,equipment.getLightDistance());
+
+
+
+            preparedStatement.executeUpdate();
+
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+
+    }
 }
+
