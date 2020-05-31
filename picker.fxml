@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+
+<AnchorPane prefHeight="700.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controller.pickerController">
+   <children>
+      <BorderPane layoutX="339.0" layoutY="1.0" prefHeight="700.0" prefWidth="55.0" style="-fx-background-color: #54AFBC;" />
+      <TableView fx:id="userTable" editable="true" layoutX="14.0" layoutY="14.0" prefHeight="406.0" prefWidth="322.0">
+        <columns>
+          <TableColumn fx:id="firstNameColumn" prefWidth="110.0" text="First Name" />
+          <TableColumn fx:id="surnameColumn" prefWidth="110.0" text="Surname" />
+            <TableColumn fx:id="levelColumn" prefWidth="100.0" text="Level" />
+        </columns>
+      </TableView>
+   </children>
+</AnchorPane>
