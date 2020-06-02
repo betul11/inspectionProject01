@@ -82,6 +82,8 @@ public class menuController {
         Parent root = loader.getRoot();
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
+        stage.sizeToScene();
+
         stage.show();
     }
 

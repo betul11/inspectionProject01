@@ -14,6 +14,8 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import sample.database.databaseHandler;
 import sample.model.customer;
+import sample.model.jobOrder;
+import sample.model.offerNo;
 import sample.model.user;
 
 public class customerController {
@@ -77,19 +79,27 @@ public class customerController {
 
    void addJobNo(){
        databaseHandler databaseHandler = new databaseHandler();
-       customer customer = new customer(customerJobOrderText.getText());
-       databaseHandler.addJobNo(customer);
-
+       if(customerNameText.getText().isEmpty()) {
+           customerNameText.setPromptText("This field can't be empty!");}
+       else {
+           jobOrder jobOrder = new jobOrder(customerNameText.getText(), customerJobOrderText.getText());
+           databaseHandler.addJobNo(jobOrder);
+           customerJobOrderText.setText(" ");
+       }
 
     }
 
-    void addOffer(){
+    void addOffer() {
         databaseHandler databaseHandler = new databaseHandler();
-        customer customer = new customer(customerOfferText.getText());
-        databaseHandler.addOffer(customer);
-
-
+        if (customerNameText.getText().isEmpty()) {
+            customerNameText.setPromptText("This field can't be empty!");
+        } else {
+            offerNo offerNo = new offerNo(customerNameText.getText(), customerOfferText.getText());
+            databaseHandler.addOffer(offerNo);
+            customerOfferText.setText(" ");
+        }
     }
+
 
    void addCustomer(){
        databaseHandler databaseHandler = new databaseHandler();

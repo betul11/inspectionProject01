@@ -67,4 +67,10 @@ public class equipment {
     public void setMagTech(String magTech) {
         this.magTech = magTech;
     }
+
+
+    @Override
+    public String toString() {
+        return this.getEquipment();
+    }
 }

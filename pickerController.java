@@ -1,74 +1,184 @@
 package sample.controller;
 
+import java.io.IOException;
 import java.net.URL;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
-import javafx.collections.FXCollections;
+
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXDatePicker;
+import com.jfoenix.controls.JFXTextField;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
-import sample.database.Const;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 import sample.database.databaseHandler;
+import sample.model.equipment;
 import sample.model.user;
+
+import static javax.swing.UIManager.getString;
 
 public class pickerController {
 
-        @FXML
-        private ResourceBundle resources;
+    @FXML
+    private ResourceBundle resources;
 
-        @FXML
-        private URL location;
-        @FXML
-        private static TableView<user> userTable;
+    @FXML
+    private URL location;
 
-        @FXML
-        private TableColumn<user, String> firstNameColumn;
-        @FXML
-        private TableColumn<user, String> surnameColumn;
-        @FXML
-        private TableColumn<user, String> levelColumn;
-    private sample.database.databaseHandler databaseHandler;
+    @FXML
+    private JFXComboBox<user> pickerEvaluator;
 
-    private ObservableList<user> data;
+    @FXML
+    private JFXComboBox<user> pickerOperator;
+
+    @FXML
+    private JFXComboBox<user> pickerConfirmer;
+
+    @FXML
+    private JFXButton createReportButton;
 
 
     @FXML
-        void initialize() throws SQLException, ClassNotFoundException {
-        data = FXCollections.observableArrayList();
-        databaseHandler = new databaseHandler();
-        ResultSet resultSet = databaseHandler.getAllUsers();
+    private JFXComboBox<equipment> pickerEquipment;
+
+    @FXML
+    private JFXDatePicker pickerReportDate;
+
+    @FXML
+    private JFXTextField pickerInspectionDatesText;
+
+    @FXML
+    private JFXButton pickerCancelButton;
+
+    @FXML
+    private JFXTextField surfaceConditionText;
+
+    @FXML
+    private JFXTextField examinationStageText;
+
+    @FXML
+    private JFXButton pickerAddSurfaceCondition;
+
+    @FXML
+    private JFXButton pickerAddExaminationStage;
+
+   private databaseHandler db;
+
+    private sample.database.databaseHandler databaseHandler;
 
 
-        try {
+    @FXML
+    void initialize() throws SQLException, ClassNotFoundException {
+        db = new databaseHandler();
+        ObservableList<user> operators = db.getAllOperators();
+        pickerOperator.setItems(operators);
+        ObservableList<user> evaluators = db.getAllOperators();
+        pickerEvaluator.setItems(evaluators);
+        ObservableList<user> confirmers = db.getAllConfirmers();
+        pickerConfirmer.setItems(confirmers);
+        ObservableList<equipment> equipments = db.getAllEquipments();
+        pickerEquipment.setItems(equipments);
 
-            while (resultSet.next()) {
-                user user = new user();
-                user.setFirstName(resultSet.getString("firstname"));
-                user.setLastName(resultSet.getString("lastname"));
-                user.setLevel(resultSet.getString("level"));
-                data.add(user);
-                firstNameColumn.setCellValueFactory(new PropertyValueFactory<>("firstname"));
-                surnameColumn.setCellValueFactory(new PropertyValueFactory<>("lastname"));
-                levelColumn.setCellValueFactory(new PropertyValueFactory<>("level"));
-                userTable.setItems(data);
 
-            }
-        } catch (SQLException e) {
+    }
+    @FXML
+    void operatorOnAction(ActionEvent event) {
+        System.out.println(pickerOperator.getValue());
+        user operator = pickerOperator.getValue();
+        System.out.println(operator.getEmail());
+    }
+
+    @FXML
+    void evaluatorOnAction(ActionEvent event) {
+        System.out.println(pickerEvaluator.getValue());
+        user evaluator = pickerEvaluator.getValue();
+        System.out.println(evaluator.getEmail());
+    }
+
+
+    @FXML
+    public void confirmerOnAction(ActionEvent actionEvent) {
+        user confirmer = pickerConfirmer.getValue();
+
+    }
+
+    @FXML
+    void reportButtonOnAction(ActionEvent event) throws IOException, SQLException, ClassNotFoundException {
+
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/sample/view/report.fxml"));
+        Parent root = fxmlLoader.load();
+        reportController reportController = fxmlLoader.getController() ;
+
+
+        reportController.setSelectedOperator(pickerOperator.getValue());
+        reportController.setSelectedConfirmation(pickerConfirmer.getValue());
+        reportController.setSelectedEvaluator(pickerEvaluator.getValue());
+        reportController.setSelectedEquipment(pickerEquipment.getValue());
+        reportController.setReportDate(pickerReportDate.getValue().toString());
+        reportController.setInspectionDates(pickerInspectionDatesText.getText());
+
+
+        reportController.fillReport();
+
+
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.sizeToScene();
+        stage.show();
+    }
+
+
+    public void inspectionDatesOnAction(ActionEvent actionEvent) {
+    }
+
+    public void reportDateOnAction(ActionEvent actionEvent) {
+    }
+
+
+
+    public void cancelButtonOnAction(ActionEvent actionEvent) {
+        //take user to main menu screen
+        pickerCancelButton.getScene().getWindow().hide();
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/sample/view/menu.fxml"));
+        try{
+            loader.load();
+        }catch (IOException e){
             e.printStackTrace();
         }
+        Parent root = loader.getRoot();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.sizeToScene();
+        stage.show();
+    }
 
+    public void equipmentOnAction(ActionEvent actionEvent) {
+    }
 
+    public void surfaceConditionButtonOnAction(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
+        if(!surfaceConditionText.getText().isEmpty()) {
 
-
-
-
+            databaseHandler db = new databaseHandler();
+            db.addSurfaceCondition(surfaceConditionText.getText());
+            surfaceConditionText.setText("");
+        }
 
     }
+
+    public void examinationStageButtonOnAction(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
+        if(!examinationStageText.getText().isEmpty()) {
+            databaseHandler db = new databaseHandler();
+            db.addExaminationStage(examinationStageText.getText());
+            examinationStageText.setText("");
+        }
     }
+}
 
 
 

@@ -1,8 +1,8 @@
 package sample.database;
 
-import sample.model.customer;
-import sample.model.equipment;
-import sample.model.user;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import sample.model.*;
 
 import java.sql.*;
 
@@ -162,14 +162,14 @@ public class databaseHandler extends configs {
 
     }
 
-    public void addJobNo(customer customer) {
+    public void addJobNo(jobOrder jobOrder) {
         String insert = "INSERT INTO orderno (orderNo,company) VALUES(?,?)";
 
         try {
             PreparedStatement preparedStatement = getDbConnection().prepareStatement(insert);
 
-            preparedStatement.setString(1,customer.getOrderNo());
-            preparedStatement.setString(2,customer.getCompanyName());
+            preparedStatement.setString(1,jobOrder.getJobOrderNo());
+            preparedStatement.setString(2,jobOrder.getCompanyName());
 
 
 
@@ -187,14 +187,14 @@ public class databaseHandler extends configs {
 
     }
 
-    public void addOffer(customer customer) {
+    public void addOffer(offerNo offerNo) {
         String insert = "INSERT INTO offerno (offerNo,company) VALUES(?,?)";
 
         try {
             PreparedStatement preparedStatement = getDbConnection().prepareStatement(insert);
 
-            preparedStatement.setString(1,customer.getOfferNo());
-            preparedStatement.setString(2,customer.getCompanyName());
+            preparedStatement.setString(1, offerNo.getOfferNo());
+            preparedStatement.setString(2,offerNo.getCompanyName());
 
 
 
@@ -212,15 +212,84 @@ public class databaseHandler extends configs {
 
     }
 
-    public ResultSet getAllUsers() throws SQLException, ClassNotFoundException {
-        String query = "SELECT * FROM "+ Const.USERS_TABLE;
+    public ObservableList<user> getAllOperators() throws SQLException, ClassNotFoundException {
+        String query = "SELECT * FROM "+ Const.USERS_TABLE+ " WHERE level = 1 OR level = 2";
+        PreparedStatement preparedStatement = getDbConnection().prepareStatement(query);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        ObservableList<user> operators = FXCollections.observableArrayList();
+        while(resultSet.next()){
+            operators.add(new user(
+                    resultSet.getString(2),
+                    resultSet.getString(3),
+                    resultSet.getString(4),
+                    resultSet.getString(5),
+                    resultSet.getString(6),
+                    resultSet.getString(7)
+            ));
+        }
+
+         return operators;
+    }
+    public ObservableList<user> getAllConfirmers() throws SQLException, ClassNotFoundException {
+        String query = "SELECT * FROM "+ Const.USERS_TABLE + " WHERE level = 3";
         PreparedStatement preparedStatement = getDbConnection().prepareStatement(query);
         ResultSet resultSet = preparedStatement.executeQuery();
 
-         return resultSet;
+        ObservableList<user> confirmers = FXCollections.observableArrayList();
+        while(resultSet.next()){
+            confirmers.add(new user(
+                    resultSet.getString(2),
+                    resultSet.getString(3),
+                    resultSet.getString(4),
+                    resultSet.getString(5),
+                    resultSet.getString(6),
+                    resultSet.getString(7)
+            ));
+        }
 
-
+        return confirmers;
     }
+
+    public ObservableList<equipment> getAllEquipments() throws SQLException, ClassNotFoundException {
+        String query = "SELECT * FROM equipment ";
+        PreparedStatement preparedStatement = getDbConnection().prepareStatement(query);
+        ResultSet resultSet = preparedStatement.executeQuery();
+
+        ObservableList<equipment> equipments = FXCollections.observableArrayList();
+        while(resultSet.next()){
+            equipments.add(new equipment(
+                    resultSet.getString(1),
+                    resultSet.getString(2),
+                    resultSet.getString(3),
+                    resultSet.getString(4),
+                    resultSet.getString(5),
+                    resultSet.getString(6)
+            ));
+        }
+
+        return equipments;
+    }
+
+    public ObservableList<customer> getAllCustomers() throws SQLException, ClassNotFoundException {
+        String query = "SELECT * FROM customer ";
+        PreparedStatement preparedStatement = getDbConnection().prepareStatement(query);
+        ResultSet resultSet = preparedStatement.executeQuery();
+
+        ObservableList<customer> customers = FXCollections.observableArrayList();
+        while(resultSet.next()){
+
+            customers.add(new customer(
+                    resultSet.getString("companyName"),
+                    resultSet.getString("address")
+
+            ));
+        }
+
+        return customers;
+    }
+
+
+
 
     public void addEquipment(equipment equipment) {
         String insert = "INSERT INTO equipment (equipment,poleDistance,carrierMedium,magTech,lightIntensity,lightDistance) VALUES(?,?,?,?,?,?)";
@@ -248,6 +317,105 @@ public class databaseHandler extends configs {
         }
 
 
+    }
+
+    public ObservableList<jobOrder> getJobOrders(String companyName) throws SQLException, ClassNotFoundException {
+        String query = "SELECT * FROM orderno WHERE company = ? ";
+
+        PreparedStatement preparedStatement = getDbConnection().prepareStatement(query);
+        preparedStatement.setString(1,companyName);
+
+        ResultSet resultSet = preparedStatement.executeQuery();
+
+        ObservableList<jobOrder> jobOrders = FXCollections.observableArrayList();
+        while(resultSet.next()){
+
+            jobOrders.add(new jobOrder(
+                    resultSet.getString("company"),
+                    resultSet.getString("orderNo")
+
+            ));
+        }
+
+        return jobOrders;
+
+
+
+    }
+
+    public ObservableList<offerNo> getOfferNos(String companyName) throws SQLException, ClassNotFoundException {
+        String query = "SELECT * FROM offerno WHERE company = ? ";
+
+        PreparedStatement preparedStatement = getDbConnection().prepareStatement(query);
+        preparedStatement.setString(1,companyName);
+
+        ResultSet resultSet = preparedStatement.executeQuery();
+
+        ObservableList<offerNo> offerNos = FXCollections.observableArrayList();
+        while(resultSet.next()){
+
+            offerNos.add(new offerNo(
+                    resultSet.getString("company"),
+                    resultSet.getString("offerno")
+
+            ));
+        }
+
+        return offerNos;
+
+
+
+    }
+
+    public void addSurfaceCondition(String surfaceCondition) throws SQLException, ClassNotFoundException {
+        String insert = "INSERT INTO surfacecondition (surfacecondition) VALUES(?)";
+        PreparedStatement preparedStatement = getDbConnection().prepareStatement(insert);
+        preparedStatement.setString(1,surfaceCondition);
+        preparedStatement.executeUpdate();
+
+
+    }
+
+    public void addExaminationStage(String examinationStage) throws SQLException, ClassNotFoundException {
+        String insert = "INSERT INTO examinationstage (examinationstage) VALUES(?)";
+        PreparedStatement preparedStatement = getDbConnection().prepareStatement(insert);
+        preparedStatement.setString(1,examinationStage);
+        preparedStatement.executeUpdate();
+
+    }
+
+    public ObservableList<String> getSurfaceConditions() throws SQLException, ClassNotFoundException {
+        String query = "SELECT * FROM surfacecondition ";
+
+        PreparedStatement preparedStatement = getDbConnection().prepareStatement(query);
+        ResultSet resultSet = preparedStatement.executeQuery();
+
+        ObservableList<String> surfaceConditions = FXCollections.observableArrayList();
+        while(resultSet.next()){
+            surfaceConditions.add(resultSet.getString("surfacecondition"));
+
+
+        }
+
+        return surfaceConditions;
+
+
+    }
+
+    public ObservableList<String> getExaminationStages() throws SQLException, ClassNotFoundException {
+        String query = "SELECT * FROM examinationstage ";
+
+        PreparedStatement preparedStatement = getDbConnection().prepareStatement(query);
+        ResultSet resultSet = preparedStatement.executeQuery();
+
+        ObservableList<String> examinationStages = FXCollections.observableArrayList();
+        while(resultSet.next()){
+            examinationStages.add(resultSet.getString("examinationstage"));
+
+
+        }
+
+        return examinationStages;
     }
 }
 
