@@ -5,8 +5,8 @@ import javafx.collections.ObservableList;
 import sample.model.*;
 
 import java.sql.*;
-
 //github linki: https://github.com/betul11/inspectionProject01
+
 public class databaseHandler extends configs {
   Connection dbConnection;
   public Connection getDbConnection() throws ClassNotFoundException, SQLException {
@@ -416,6 +416,26 @@ public class databaseHandler extends configs {
         }
 
         return examinationStages;
+    }
+
+
+    public int getNvalue() throws SQLException, ClassNotFoundException {
+      String query = "SELECT * FROM counter ORDER BY counter DESC LIMIT 1";
+        PreparedStatement preparedStatement = getDbConnection().prepareStatement(query);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        int n = resultSet.getInt("counter");
+        return n;
+
+
+    }
+
+    public void setNvalue(int n) throws SQLException, ClassNotFoundException {
+        String insert = "INSERT INTO counter (counter) VALUES (?)";
+        PreparedStatement preparedStatement = getDbConnection().prepareStatement(insert);
+        preparedStatement.setInt(1,n);
+        preparedStatement.executeUpdate();
+
+
     }
 }
 

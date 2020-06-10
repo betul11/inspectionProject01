@@ -66,10 +66,14 @@ public class deleteProfileController {
                 if(counter==1){
                     deleteAccount();
                     showMainmenu();
-
                 }else{
                     shaker emailShaker = new shaker(deleteEmailText);
                     emailShaker.shake();
+                    deleteEmailText.setText("");
+
+                    deleteEmailText.setStyle("-fx-border-color: red ; -fx-border-width: 1px ; ");
+                    deleteEmailText.setPromptText("Email was not found!");
+
                 }
             } catch (SQLException e){
                 e.printStackTrace();
