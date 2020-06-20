@@ -15,6 +15,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 import sample.database.databaseHandler;
 import sample.model.equipment;
@@ -107,8 +108,27 @@ public class pickerController {
 
     }
 
+    boolean checkIfEmpty(){
+        if(pickerOperator.getSelectionModel().isEmpty()|| pickerEquipment.getSelectionModel().isEmpty()||
+        pickerConfirmer.getSelectionModel().isEmpty()|| pickerEvaluator.getSelectionModel().isEmpty() ||
+        pickerReportDate.getValue()==null){
+            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+
+            errorAlert.setContentText("Please fill all the necessary fields (*)!");
+            errorAlert.showAndWait();
+
+            return true;
+        }
+        return false;
+    }
+
+
+
     @FXML
     void reportButtonOnAction(ActionEvent event) throws IOException, SQLException, ClassNotFoundException {
+        if(checkIfEmpty()==true){
+            return;
+        }
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/sample/view/report.fxml"));
         Parent root = fxmlLoader.load();

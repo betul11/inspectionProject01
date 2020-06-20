@@ -51,10 +51,10 @@ public class reportController {
     @FXML
     private JFXTextField operatorNameText;
     @FXML
-    private JFXComboBox<customer> customerNameCombo;
+    private JFXComboBox<String> customerNameCombo;
 
     @FXML
-    private JFXComboBox<jobOrder> jobOrderCombo;
+    private JFXComboBox<String> jobOrderCombo;
 
     @FXML
     private JFXTextField inspectionPlaceText;
@@ -93,7 +93,7 @@ public class reportController {
     private JFXTextField reportDateText;
 
     @FXML
-    private JFXComboBox<offerNo> offerNoCombo;
+    private JFXComboBox<String> offerNoCombo;
 
     @FXML
     private JFXTextField poleDistanceText;
@@ -385,22 +385,29 @@ public class reportController {
                 jobOrderCombo.setDisable(true);
             } else {
                 databaseHandler db = new databaseHandler();
-                customer combo = customerNameCombo.getValue();
-
-                    inspectionPlaceText.setText(combo.getAddress());
-
-                ObservableList<jobOrder> jobOrders = null;
+                String comboAddress = null;
                 try {
-                    jobOrders = db.getJobOrders(combo.getCompanyName());
+                    comboAddress = db.getCompanyAddress(customerNameCombo.getValue());
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+
+                inspectionPlaceText.setText(comboAddress);
+
+                ObservableList<String> jobOrders = null;
+                try {
+                    jobOrders = db.getJobOrders(customerNameCombo.getValue());
                 } catch (SQLException e) {
                     e.printStackTrace();
                 } catch (ClassNotFoundException e) {
                     e.printStackTrace();
                 }
                 jobOrderCombo.setItems(jobOrders);
-                ObservableList<offerNo> offerNos = null;
+                ObservableList<String> offerNos = null;
                 try {
-                    offerNos = db.getOfferNos(combo.getCompanyName());
+                    offerNos = db.getOfferNos(customerNameCombo.getValue());
                 } catch (SQLException e) {
                     e.printStackTrace();
                 } catch (ClassNotFoundException e) {
@@ -416,7 +423,7 @@ public class reportController {
         currentType.add("DC");
         currentTypeCombo.setItems(currentType);
 
-        ObservableList<customer> customers = db.getAllCustomers();
+        ObservableList<String> customers = db.getAllCustomers();
         customerNameCombo.setItems(customers);
 
         ObservableList<String> surfaceConditions = db.getSurfaceConditions();
@@ -509,24 +516,84 @@ public class reportController {
 
     public boolean checkIfEmpty(){
         if(weldText1.getText().isEmpty() || testLengthText1.getText().isEmpty()
-        || weldingProcessText1.getText().isEmpty() || thicknessText1.getText().isEmpty()){
+        || weldingProcessText1.getText().isEmpty() || thicknessText1.getText().isEmpty() || resultCombo1.getValue()==null){
             Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+            weldText1.setStyle("-fx-border-color: red ; -fx-border-width: 1px ; ");
+            testLengthText1.setStyle("-fx-border-color: red ; -fx-border-width: 1px ; ");
+            thicknessText1.setStyle("-fx-border-color: red ; -fx-border-width: 1px ; ");
+            weldingProcessText1.setStyle("-fx-border-color: red ; -fx-border-width: 1px ; ");
+            resultCombo1.setStyle("-fx-border-color: red ; -fx-border-width: 1px ; ");
+
+
             errorAlert.setContentText("Please fill the necessary fields (*)!");
             errorAlert.showAndWait();
             return true;
 
         }else if ((resultCombo1.getValue()=="RED" && defectType1.getText().isEmpty())|| (resultCombo1.getValue()=="RED"&& defectLocationText1.getText().isEmpty())){
             Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+            defectType1.setStyle("-fx-border-color: red ; -fx-border-width: 1px ; ");
+            defectLocationText1.setStyle("-fx-border-color: red ; -fx-border-width: 1px ; ");
+
             errorAlert.setContentText("Please specify defect location and type (*)!");
             errorAlert.showAndWait();
             return true;
 
         }else if ((resultCombo2.getValue()=="RED" && defectType2.getText().isEmpty())|| (resultCombo2.getValue()=="RED"&& defectLocationText2.getText().isEmpty())){
             Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+            defectType2.setStyle("-fx-border-color: red ; -fx-border-width: 1px ; ");
+            defectLocationText2.setStyle("-fx-border-color: red ; -fx-border-width: 1px ; ");
             errorAlert.setContentText("Please specify defect location and type (*)!");
             errorAlert.showAndWait();
             return true;
 
+        }
+        else if ((resultCombo3.getValue()=="RED" && defectType3.getText().isEmpty())|| (resultCombo3.getValue()=="RED"&& defectLocationText3.getText().isEmpty())){
+            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+            defectType3.setStyle("-fx-border-color: red ; -fx-border-width: 1px ; ");
+            defectLocationText3.setStyle("-fx-border-color: red ; -fx-border-width: 1px ; ");
+            errorAlert.setContentText("Please specify defect location and type (*)!");
+            errorAlert.showAndWait();
+            return true;
+
+        }else if ((resultCombo4.getValue()=="RED" && defectType4.getText().isEmpty())|| (resultCombo4.getValue()=="RED"&& defectLocationText4.getText().isEmpty())){
+            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+            defectType4.setStyle("-fx-border-color: red ; -fx-border-width: 1px ; ");
+            defectLocationText4.setStyle("-fx-border-color: red ; -fx-border-width: 1px ; ");
+            errorAlert.setContentText("Please specify defect location and type (*)!");
+            errorAlert.showAndWait();
+            return true;
+
+        }else if ((resultCombo5.getValue()=="RED" && defectType5.getText().isEmpty())|| (resultCombo5.getValue()=="RED"&& defectLocationText5.getText().isEmpty())){
+            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+            defectType5.setStyle("-fx-border-color: red ; -fx-border-width: 1px ; ");
+            defectLocationText5.setStyle("-fx-border-color: red ; -fx-border-width: 1px ; ");
+            errorAlert.setContentText("Please specify defect location and type (*)!");
+            errorAlert.showAndWait();
+            return true;
+
+        }else if ((!weldText2.getText().isEmpty() && resultCombo2.getValue().isEmpty())|| (!weldText3.getText().isEmpty() && resultCombo3.getValue().isEmpty())
+           || (!weldText4.getText().isEmpty() && resultCombo4.getValue().isEmpty()) || (!weldText5.getText().isEmpty() && resultCombo5.getValue().isEmpty())){
+            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+            errorAlert.setContentText("Please specify defect location and type (*)!");
+            errorAlert.showAndWait();
+            return true;
+
+        }else if(inspectionPlaceText.getText().isEmpty() || currentTypeCombo.getSelectionModel().isEmpty() || surfaceConditionCombo.getSelectionModel().isEmpty() || offerNoCombo.getSelectionModel().isEmpty()
+             || jobOrderCombo.getSelectionModel().isEmpty() || examinationStageCombo.getSelectionModel().isEmpty() || customerNameCombo.getSelectionModel().isEmpty()){
+            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+            currentTypeCombo.setStyle("-fx-border-color: red ; -fx-border-width: 1px ; ");
+            surfaceConditionCombo.setStyle("-fx-border-color: red ; -fx-border-width: 1px ; ");
+            customerNameCombo.setStyle("-fx-border-color: red ; -fx-border-width: 1px ; ");
+            jobOrderCombo.setStyle("-fx-border-color: red ; -fx-border-width: 1px ; ");
+            offerNoCombo.setStyle("-fx-border-color: red ; -fx-border-width: 1px ; ");
+            examinationStageCombo.setStyle("-fx-border-color: red ; -fx-border-width: 1px ; ");
+            inspectionPlaceText.setStyle("-fx-border-color: red ; -fx-border-width: 1px ; ");
+
+
+
+            errorAlert.setContentText("Please fill the necessary fields (*)!");
+            errorAlert.showAndWait();
+            return true;
         }
 
 
@@ -549,9 +616,10 @@ public class reportController {
         XSSFSheet sheet = workbook.getSheetAt(0);
         // this should appear at costumer name field
         XSSFRow row1 = sheet.getRow(2);
-       // XSSFCell customerCombo = row1.getCell(3);
+         XSSFCell customerCombo = row1.getCell(3);
         // passing value to the cell
-       // customerCombo.setCellValue(customerNameCombo.getValue().getCompanyName());
+
+        customerCombo.setCellValue(customerNameCombo.getValue());
         XSSFCell inspectionProcedure = row1.getCell(19);
         inspectionProcedure.setCellValue(inspectionProcedureText.getText());
         XSSFCell page = row1.getCell(26);
@@ -578,17 +646,17 @@ public class reportController {
         XSSFCell inspectionStandard = row4.getCell(3);
         inspectionStandard.setCellValue(inspectionStandardText.getText());
         XSSFCell surfaceCondition = row4.getCell(19);
-      //  surfaceCondition.setCellValue(surfaceConditionCombo.getValue());
+        surfaceCondition.setCellValue(surfaceConditionCombo.getValue());
         XSSFCell jobOrder = row4.getCell(26);
-       // jobOrder.setCellValue(jobOrderCombo.getValue().toString());
+        jobOrder.setCellValue(jobOrderCombo.getValue().toString());
 
         XSSFRow row5 = sheet.getRow(6);
         XSSFCell evaluationStandard = row5.getCell(3);
         evaluationStandard.setCellValue(evaluationStandardText.getText());
         XSSFCell examinationStage = row5.getCell(19);
-       // examinationStage.setCellValue(examinationStageCombo.getValue());
+        examinationStage.setCellValue(examinationStageCombo.getValue());
         XSSFCell offerNo = row5.getCell(26);
-      //  offerNo.setCellValue(offerNoCombo.getValue().getOfferNo());
+        offerNo.setCellValue(offerNoCombo.getValue());
 
         XSSFRow row6 = sheet.getRow(8);
         XSSFCell poleDistance = row6.getCell(4);
@@ -664,7 +732,7 @@ public class reportController {
         XSSFCell defectLocation1 = row15.getCell(24);
         defectLocation1.setCellValue(defectLocationText1.getText());
         XSSFCell result1 = row15.getCell(27);
-      //  result1.setCellValue(resultCombo1.getValue());
+        result1.setCellValue(resultCombo1.getValue());
 
 
 
@@ -686,8 +754,9 @@ public class reportController {
         XSSFCell defectLocation2 = row16.getCell(24);
         defectLocation2.setCellValue(defectLocationText2.getText());
         XSSFCell result2 = row16.getCell(27);
-      //  result2.setCellValue(resultCombo2.getValue());
-
+        if(resultCombo2.getValue()!=null) {
+           result2.setCellValue(resultCombo2.getValue());
+        }
 
 
 
@@ -708,7 +777,10 @@ public class reportController {
         XSSFCell defectLocation3 = row17.getCell(24);
         defectLocation3.setCellValue(defectLocationText3.getText());
         XSSFCell result3 = row17.getCell(27);
-      //  result3.setCellValue(resultCombo3.getValue());
+        if(resultCombo3.getValue()!=null) {
+
+            result3.setCellValue(resultCombo3.getValue());
+        }
 
 
         XSSFRow row18 = sheet.getRow(27);
@@ -727,7 +799,10 @@ public class reportController {
         XSSFCell defectLocation4 = row18.getCell(24);
         defectLocation4.setCellValue(defectLocationText4.getText());
         XSSFCell result4 = row18.getCell(27);
-      //  result4.setCellValue(resultCombo4.getValue());
+        if(resultCombo4.getValue()!=null) {
+
+            result4.setCellValue(resultCombo4.getValue());
+        }
 
 
 
@@ -749,7 +824,10 @@ public class reportController {
         XSSFCell defectLocation5 = row19.getCell(24);
         defectLocation5.setCellValue(defectLocationText5.getText());
         XSSFCell result5 = row19.getCell(27);
-        //result5.setCellValue(resultCombo5.getValue());
+        if(resultCombo5.getValue()!=null) {
+
+            result5.setCellValue(resultCombo5.getValue());
+        }
 
         XSSFRow row20 = sheet.getRow(39);
         XSSFCell operatorName = row20.getCell(5);
@@ -780,17 +858,21 @@ public class reportController {
 
 
         // important to save the changes we made to the new file
-      //  databaseHandler db = new databaseHandler();
-        //int n = db.getNvalue();
+        databaseHandler db = new databaseHandler();
+        int n = db.getNvalue();
 
-        workbook.write(new FileOutputStream("D:/TDU/4.dönem/INF202/ReportExcel.xlsx"));
+        workbook.write(new FileOutputStream("D:/TDU/4.dönem/INF202/ReportExcel"+n+".xlsx"));
         workbook.close();
-       // n++;
-       // db.setNvalue(n);
+        n++;
+        db.setNvalue(n);
 
     }
 
-    public void convertPDFonAction(ActionEvent actionEvent) throws IOException {
+    public void convertPDFonAction(ActionEvent actionEvent) throws IOException, SQLException, ClassNotFoundException {
+        if(checkIfEmpty()==true){
+
+            return;
+        }
 
 
         File file = new File("D:/TDU/4.dönem/INF202/Rapor1.pdf");
@@ -798,14 +880,14 @@ public class reportController {
 
          PDPage page = document.getPage(0);
 
-      /*  PDPageContentStream contentStream = new PDPageContentStream(document, page, PDPageContentStream.AppendMode.APPEND, true, true);
+        PDPageContentStream contentStream = new PDPageContentStream(document, page, PDPageContentStream.AppendMode.APPEND, true, true);
         contentStream.beginText();
         contentStream.newLineAtOffset(115, 750);
         contentStream.setFont(PDType1Font.HELVETICA, 7);
-        String customer = customerNameCombo.getValue().getCompanyName();
+        String customer = customerNameCombo.getValue();
         contentStream.showText(customer);
         contentStream.endText();
-        contentStream.close();*/
+        contentStream.close();
 
         PDPageContentStream contentStream1 = new PDPageContentStream(document, page, PDPageContentStream.AppendMode.APPEND, true, true);
         contentStream1.beginText();
@@ -819,7 +901,8 @@ public class reportController {
         contentStream2.beginText();
         contentStream2.newLineAtOffset(115, 705);
         contentStream2.setFont(PDType1Font.HELVETICA, 7);
-        contentStream2.showText(inspectionPlaceText.getText());
+        if(!inspectionPlaceText.getText().isEmpty()){
+        contentStream2.showText(inspectionPlaceText.getText());}
         contentStream2.endText();
         contentStream2.close();
 
@@ -954,21 +1037,21 @@ public class reportController {
         contentStream19.endText();
         contentStream19.close();
 
-       /* PDPageContentStream contentStream20 = new PDPageContentStream(document, page, PDPageContentStream.AppendMode.APPEND, true, true);
+        PDPageContentStream contentStream20 = new PDPageContentStream(document, page, PDPageContentStream.AppendMode.APPEND, true, true);
         contentStream20.beginText();
         contentStream20.newLineAtOffset(526, 685);
         contentStream20.setFont(PDType1Font.HELVETICA, 7);
-        contentStream20.showText(jobOrderCombo.getValue().getJobOrderNo());
+        contentStream20.showText(jobOrderCombo.getValue());
         contentStream20.endText();
-        contentStream20.close();*/
+        contentStream20.close();
 
-      /*  PDPageContentStream contentStream21 = new PDPageContentStream(document, page, PDPageContentStream.AppendMode.APPEND, true, true);
+       PDPageContentStream contentStream21 = new PDPageContentStream(document, page, PDPageContentStream.AppendMode.APPEND, true, true);
         contentStream21.beginText();
         contentStream21.newLineAtOffset(526, 660);
         contentStream21.setFont(PDType1Font.HELVETICA, 7);
-        contentStream21.showText(offerNoCombo.getValue().getOfferNo());
+        contentStream21.showText(offerNoCombo.getValue());
         contentStream21.endText();
-        contentStream21.close();*/
+        contentStream21.close();
 
         PDPageContentStream contentStream22 = new PDPageContentStream(document, page, PDPageContentStream.AppendMode.APPEND, true, true);
         contentStream22.beginText();
@@ -1084,7 +1167,7 @@ public class reportController {
         contentStream35.endText();
         contentStream35.close();
 
-      /*  PDPageContentStream contentStream36 = new PDPageContentStream(document, page, PDPageContentStream.AppendMode.APPEND, true, true);
+       PDPageContentStream contentStream36 = new PDPageContentStream(document, page, PDPageContentStream.AppendMode.APPEND, true, true);
         contentStream36.beginText();
         contentStream36.newLineAtOffset(76, 321);
         contentStream36.setFont(PDType1Font.HELVETICA, 7);
@@ -1145,6 +1228,7 @@ public class reportController {
         contentStream43.beginText();
         contentStream43.newLineAtOffset(556, 321);
         contentStream43.setFont(PDType1Font.HELVETICA, 7);
+
         contentStream43.showText(resultCombo1.getValue());
         contentStream43.endText();
         contentStream43.close();
@@ -1209,7 +1293,8 @@ public class reportController {
         contentStream51.beginText();
         contentStream51.newLineAtOffset(556, 304);
         contentStream51.setFont(PDType1Font.HELVETICA, 7);
-        contentStream51.showText(resultCombo5.getValue());
+        if(resultCombo2.getValue()!=null){
+        contentStream51.showText(resultCombo2.getValue()); }
         contentStream51.endText();
         contentStream51.close();
 
@@ -1273,7 +1358,8 @@ public class reportController {
         contentStream59.beginText();
         contentStream59.newLineAtOffset(556, 287);
         contentStream59.setFont(PDType1Font.HELVETICA, 7);
-        contentStream59.showText(resultCombo3.getValue());
+        if(resultCombo3.getValue()!=null){
+        contentStream59.showText(resultCombo3.getValue()); }
         contentStream59.endText();
         contentStream59.close();
 
@@ -1337,7 +1423,8 @@ public class reportController {
         contentStream67.beginText();
         contentStream67.newLineAtOffset(556, 270);
         contentStream67.setFont(PDType1Font.HELVETICA, 7);
-        contentStream67.showText(resultCombo4.getValue());
+        if(resultCombo4.getValue()!=null){
+        contentStream67.showText(resultCombo4.getValue()); }
         contentStream67.endText();
         contentStream67.close();
 
@@ -1405,9 +1492,10 @@ public class reportController {
         contentStream75.beginText();
         contentStream75.newLineAtOffset(556, 253);
         contentStream75.setFont(PDType1Font.HELVETICA, 7);
-        contentStream75.showText(resultCombo5.getValue());
+        if(resultCombo5.getValue()!=null){
+        contentStream75.showText(resultCombo5.getValue()); }
         contentStream75.endText();
-        contentStream75.close();*/
+        contentStream75.close();
 
         PDPageContentStream contentStream76 = new PDPageContentStream(document, page, PDPageContentStream.AppendMode.APPEND, true, true);
         contentStream76.beginText();
@@ -1491,21 +1579,16 @@ public class reportController {
 
 
 
-
-
-        document.save("D:/TDU/4.dönem/INF202/PDFRapor.pdf");
+        databaseHandler db = new databaseHandler();
+        int n = db.getNvalue();
+        document.save("D:/TDU/4.dönem/INF202/PDFRapor"+n+".pdf");
         document.close();
+        n++;
+        db.setNvalue(n);
+
+
     }
 
-   /* public static void test(int x, int y, PDDocument document, PDPage page) throws IOException {
-       PDPageContentStream contentStream = new PDPageContentStream(document, page, PDPageContentStream.AppendMode.APPEND, true, true);
-        contentStream.beginText();
-        contentStream.newLineAtOffset(x, y);
-        contentStream.setFont(PDType1Font.HELVETICA, 6);
-        String text = "This is me Testing";
-        contentStream.showText(text);
-        contentStream.endText();
-        contentStream.close();
-    }*/
+
 
 }

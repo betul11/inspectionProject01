@@ -10,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 import sample.database.databaseHandler;
 import sample.model.equipment;
@@ -54,7 +55,6 @@ public class addEquipmentController {
        });
        equipmentSaveButton.setOnAction(event -> {
            addEquipment();
-           showMainMenu();
        });
 
     }
@@ -78,9 +78,25 @@ public class addEquipmentController {
     }
 
     public void addEquipment(){
+        if(equipmentNameText.getText().isEmpty()
+        || equipmentCarrierMediumText.getText().isEmpty()
+        || equipmentLightDistanceText.getText().isEmpty()
+        || equipmentMagTechText.getText().isEmpty()
+        || equipmentLightIntensityText.getText().isEmpty()
+        || equipmentPoleDistanceText.getText().isEmpty()){
+
+            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+            errorAlert.setContentText("Please fill all the required fields !");
+            errorAlert.showAndWait();
+            return;
+        }
+
+
         databaseHandler databaseHandler = new databaseHandler();
         equipment equipment = new equipment(equipmentNameText.getText(), equipmentPoleDistanceText.getText(),
                 equipmentLightIntensityText.getText(),equipmentCarrierMediumText.getText(),equipmentLightDistanceText.getText(), equipmentMagTechText.getText());
         databaseHandler.addEquipment(equipment);
+        showMainMenu();
+
     }
 }

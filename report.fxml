@@ -12,8 +12,8 @@
    <children>
       <AnchorPane layoutY="525.0" prefHeight="846.6" prefWidth="600.4" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <JFXButton fx:id="pdfButton" layoutX="498.0" layoutY="803.0" onAction="#convertPDFonAction" style="-fx-border-color: #99c4da;" text="Convert to PDF" />
-            <JFXButton fx:id="excelButton" layoutX="378.0" layoutY="803.0" onAction="#convertEXCELonAction" style="-fx-border-color: #99c4da;" text="Convert to EXCEL" />
+            <JFXButton fx:id="pdfButton" layoutX="478.0" layoutY="803.0" onAction="#convertPDFonAction" style="-fx-border-color: #99c4da;" text="Convert to PDF" />
+            <JFXButton fx:id="excelButton" layoutX="348.0" layoutY="803.0" onAction="#convertEXCELonAction" style="-fx-border-color: #99c4da;" text="Convert to EXCEL" />
             <JFXButton fx:id="goBackButton" layoutX="8.0" layoutY="803.0" onAction="#goBackOnAction" style="-fx-border-color: #99c4da;" text="Go Back" />
          </children></AnchorPane>
       <AnchorPane layoutY="-2.0" prefHeight="30.0" prefWidth="595.0" style="-fx-background-color: #54AFBC;">
@@ -22,8 +22,8 @@
          </children>
       </AnchorPane>
       <JFXComboBox fx:id="customerNameCombo" editable="true" focusColor="#4f67af" layoutX="100.0" layoutY="34.0" onAction="#customerComboOnAction" onInputMethodTextChanged="#customerComboInput" prefHeight="20.0" prefWidth="125.0" style="-fx-border-color: #99c4da;" unFocusColor="#8c8989" />
-      <JFXComboBox fx:id="jobOrderCombo" editable="true" focusColor="#4f67af" layoutX="483.0" layoutY="127.0" onAction="#jobOrderOnAction" prefHeight="20.0" prefWidth="112.0" style="-fx-background-color: #ffffff; -fx-border-color: #99c4da;" unFocusColor="#8c8989" />
-      <Label layoutX="4.0" layoutY="40.0" prefHeight="18.0" prefWidth="70.0" text="Customer:">
+      <JFXComboBox fx:id="jobOrderCombo" editable="true" focusColor="#4f67af" layoutX="494.0" layoutY="127.0" onAction="#jobOrderOnAction" prefHeight="27.0" prefWidth="101.0" style="-fx-background-color: #ffffff; -fx-border-color: #99c4da;" unFocusColor="#8c8989" />
+      <Label layoutX="4.0" layoutY="40.0" prefHeight="18.0" prefWidth="70.0" text="Customer (*)">
          <font>
             <Font size="10.0" />
          </font></Label>
@@ -77,12 +77,12 @@
             <Font size="10.0" />
          </font>
       </Label>
-      <Label layoutX="229.0" layoutY="131.0" prefHeight="18.0" prefWidth="91.0" text="Surface Condition">
+      <Label layoutX="229.0" layoutY="131.0" prefHeight="18.0" prefWidth="91.0" text="Surface Condition(*)">
          <font>
             <Font size="10.0" />
          </font>
       </Label>
-      <Label layoutX="229.0" layoutY="163.0" prefHeight="18.0" prefWidth="100.0" text="Examination Stage">
+      <Label layoutX="229.0" layoutY="163.0" prefHeight="18.0" prefWidth="100.0" text="Examination Stage(*)">
          <font>
             <Font size="10.0" />
          </font>
@@ -119,12 +119,12 @@
             <Font size="10.0" />
          </font>
       </Label>
-      <Label layoutX="416.0" layoutY="131.0" prefHeight="18.0" prefWidth="70.0" text="Job Order No.">
+      <Label layoutX="416.0" layoutY="131.0" prefHeight="18.0" prefWidth="80.0" text="Job Order No. (*)">
          <font>
             <Font size="10.0" />
          </font>
       </Label>
-      <Label layoutX="416.0" layoutY="162.0" prefHeight="18.0" prefWidth="60.0" text="Offer No.">
+      <Label layoutX="416.0" layoutY="162.0" prefHeight="18.0" prefWidth="60.0" text="Offer No. (*)">
          <font>
             <Font size="10.0" />
          </font>
@@ -144,7 +144,7 @@
             <Font size="10.0" />
          </font>
       </JFXTextField>
-      <JFXComboBox fx:id="offerNoCombo" editable="true" focusColor="#4f67af" layoutX="483.0" layoutY="158.0" prefHeight="20.0" prefWidth="112.0" style="-fx-background-color: #ffffff; -fx-border-color: #99c4da;" unFocusColor="#8c8989" />
+      <JFXComboBox fx:id="offerNoCombo" editable="true" focusColor="#4f67af" layoutX="494.0" layoutY="158.0" prefHeight="27.0" prefWidth="101.0" style="-fx-background-color: #ffffff; -fx-border-color: #99c4da;" unFocusColor="#8c8989" />
       <AnchorPane layoutY="197.0" prefHeight="23.0" prefWidth="595.0" style="-fx-background-color: #54AFBC;">
          <children>
             <Label layoutX="4.0" layoutY="3.0" prefHeight="16.0" prefWidth="249.0" text="Equipment Information" />
@@ -215,7 +215,7 @@
             <Font size="10.0" />
          </font>
       </Label>
-      <Label layoutX="231.0" layoutY="256.0" prefHeight="18.0" prefWidth="90.0" text="Current Type">
+      <Label layoutX="231.0" layoutY="256.0" prefHeight="18.0" prefWidth="90.0" text="Current Type(*)">
          <font>
             <Font size="10.0" />
          </font>
@@ -301,7 +301,7 @@
             <Font size="10.0" />
          </font>
       </JFXTextField>
-      <JFXTextField alignment="CENTER" layoutX="484.0" layoutY="280.0" prefHeight="20.0" prefWidth="112.0" style="-fx-background-color: #ffffff; -fx-border-color: #99c4da;" text="GRINDING">
+      <JFXTextField fx:id="surfaceConditionText" alignment="CENTER" layoutX="484.0" layoutY="280.0" prefHeight="20.0" prefWidth="112.0" style="-fx-background-color: #ffffff; -fx-border-color: #99c4da;" text="GRINDING">
          <font>
             <Font size="10.0" />
          </font>
@@ -386,22 +386,22 @@
             <Font size="10.0" />
          </font>
       </Label>
-      <Label layoutX="34.0" layoutY="530.0" prefHeight="18.0" prefWidth="90.0" text="Weld / Piece No.">
+      <Label layoutX="34.0" layoutY="530.0" prefHeight="18.0" prefWidth="90.0" text="Weld / Piece No. (*)">
          <font>
             <Font size="10.0" />
          </font>
       </Label>
-      <Label layoutX="132.0" layoutY="525.0" prefHeight="30.0" prefWidth="41.0" text="Test Length" wrapText="true">
+      <Label layoutX="132.0" layoutY="520.0" prefHeight="43.0" prefWidth="50.0" text="Test Length (*)" wrapText="true">
          <font>
             <Font size="10.0" />
          </font>
       </Label>
-      <Label layoutX="184.0" layoutY="530.0" prefHeight="18.0" prefWidth="90.0" text="Welding process">
+      <Label layoutX="184.0" layoutY="530.0" prefHeight="18.0" prefWidth="90.0" text="Welding process (*)">
          <font>
             <Font size="10.0" />
          </font>
       </Label>
-      <Label layoutX="282.0" layoutY="525.0" prefHeight="30.0" prefWidth="50.0" text="Thickness (mm)" wrapText="true">
+      <Label layoutX="282.0" layoutY="525.0" prefHeight="30.0" prefWidth="50.0" text="Thickness (mm) (*)" wrapText="true">
          <font>
             <Font size="10.0" />
          </font>
@@ -411,12 +411,12 @@
             <Font size="10.0" />
          </font>
       </Label>
-      <Label layoutX="384.0" layoutY="530.0" prefHeight="18.0" prefWidth="90.0" text="Defect Type">
+      <Label layoutX="384.0" layoutY="523.0" prefHeight="37.0" prefWidth="90.0" text="Defect Type &quot;if result is RED (*)&quot;" wrapText="true">
          <font>
             <Font size="10.0" />
          </font>
       </Label>
-      <Label layoutX="474.0" layoutY="530.0" prefHeight="18.0" prefWidth="90.0" text="Defect Location">
+      <Label layoutX="463.0" layoutY="522.0" prefHeight="38.0" prefWidth="90.0" text="Defect Location &quot;if result is RED (*)&quot;" wrapText="true">
          <font>
             <Font size="10.0" />
          </font>
@@ -471,12 +471,12 @@
             <Font size="10.0" />
          </font>
       </JFXTextField>
-      <JFXTextField fx:id="defectType1" alignment="CENTER" layoutX="380.0" layoutY="560.0" prefHeight="26.0" prefWidth="90.0" style="-fx-background-color: #ffffff; -fx-border-color: #99c4da;">
+      <JFXTextField fx:id="defectType1" alignment="CENTER" layoutX="380.0" layoutY="560.0" prefHeight="26.0" prefWidth="80.0" style="-fx-background-color: #ffffff; -fx-border-color: #99c4da;">
          <font>
             <Font size="10.0" />
          </font>
       </JFXTextField>
-      <JFXTextField fx:id="defectLocationText1" alignment="CENTER" layoutX="470.0" layoutY="560.0" prefHeight="26.0" prefWidth="80.0" style="-fx-background-color: #ffffff; -fx-border-color: #99c4da;">
+      <JFXTextField fx:id="defectLocationText1" alignment="CENTER" layoutX="460.0" layoutY="560.0" prefHeight="26.0" prefWidth="90.0" style="-fx-background-color: #ffffff; -fx-border-color: #99c4da;">
          <font>
             <Font size="10.0" />
          </font>
@@ -501,12 +501,12 @@
             <Font size="10.0" />
          </font>
       </JFXTextField>
-      <JFXTextField fx:id="defectType2" alignment="CENTER" layoutX="380.0" layoutY="592.0" prefHeight="26.0" prefWidth="90.0" style="-fx-background-color: #ffffff; -fx-border-color: #99c4da;">
+      <JFXTextField fx:id="defectType2" alignment="CENTER" layoutX="380.0" layoutY="592.0" prefHeight="26.0" prefWidth="80.0" style="-fx-background-color: #ffffff; -fx-border-color: #99c4da;">
          <font>
             <Font size="10.0" />
          </font>
       </JFXTextField>
-      <JFXTextField fx:id="defectLocationText2" alignment="CENTER" layoutX="470.0" layoutY="592.0" prefHeight="26.0" prefWidth="80.0" style="-fx-background-color: #ffffff; -fx-border-color: #99c4da;">
+      <JFXTextField fx:id="defectLocationText2" alignment="CENTER" layoutX="460.0" layoutY="592.0" prefHeight="26.0" prefWidth="90.0" style="-fx-background-color: #ffffff; -fx-border-color: #99c4da;">
          <font>
             <Font size="10.0" />
          </font>
@@ -531,12 +531,12 @@
             <Font size="10.0" />
          </font>
       </JFXTextField>
-      <JFXTextField fx:id="defectType3" alignment="CENTER" layoutX="380.0" layoutY="620.0" prefHeight="26.0" prefWidth="90.0" style="-fx-background-color: #ffffff; -fx-border-color: #99c4da;">
+      <JFXTextField fx:id="defectType3" alignment="CENTER" layoutX="380.0" layoutY="620.0" prefHeight="26.0" prefWidth="80.0" style="-fx-background-color: #ffffff; -fx-border-color: #99c4da;">
          <font>
             <Font size="10.0" />
          </font>
       </JFXTextField>
-      <JFXTextField fx:id="defectLocationText3" alignment="CENTER" layoutX="470.0" layoutY="620.0" prefHeight="26.0" prefWidth="80.0" style="-fx-background-color: #ffffff; -fx-border-color: #99c4da;">
+      <JFXTextField fx:id="defectLocationText3" alignment="CENTER" layoutX="460.0" layoutY="620.0" prefHeight="26.0" prefWidth="90.0" style="-fx-background-color: #ffffff; -fx-border-color: #99c4da;">
          <font>
             <Font size="10.0" />
          </font>
@@ -561,12 +561,12 @@
             <Font size="10.0" />
          </font>
       </JFXTextField>
-      <JFXTextField fx:id="defectType4" alignment="CENTER" layoutX="380.0" layoutY="650.0" prefHeight="26.0" prefWidth="90.0" style="-fx-background-color: #ffffff; -fx-border-color: #99c4da;">
+      <JFXTextField fx:id="defectType4" alignment="CENTER" layoutX="380.0" layoutY="650.0" prefHeight="26.0" prefWidth="80.0" style="-fx-background-color: #ffffff; -fx-border-color: #99c4da;">
          <font>
             <Font size="10.0" />
          </font>
       </JFXTextField>
-      <JFXTextField fx:id="defectLocationText4" alignment="CENTER" layoutX="470.0" layoutY="650.0" prefHeight="26.0" prefWidth="80.0" style="-fx-background-color: #ffffff; -fx-border-color: #99c4da;">
+      <JFXTextField fx:id="defectLocationText4" alignment="CENTER" layoutX="459.0" layoutY="650.0" prefHeight="26.0" prefWidth="91.0" style="-fx-background-color: #ffffff; -fx-border-color: #99c4da;">
          <font>
             <Font size="10.0" />
          </font>
@@ -591,12 +591,12 @@
             <Font size="10.0" />
          </font>
       </JFXTextField>
-      <JFXTextField fx:id="defectType5" alignment="CENTER" layoutX="380.0" layoutY="680.0" prefHeight="26.0" prefWidth="90.0" style="-fx-background-color: #ffffff; -fx-border-color: #99c4da;">
+      <JFXTextField fx:id="defectType5" alignment="CENTER" layoutX="380.0" layoutY="680.0" prefHeight="26.0" prefWidth="80.0" style="-fx-background-color: #ffffff; -fx-border-color: #99c4da;">
          <font>
             <Font size="10.0" />
          </font>
       </JFXTextField>
-      <JFXTextField fx:id="defectLocationText5" alignment="CENTER" layoutX="470.0" layoutY="680.0" prefHeight="26.0" prefWidth="80.0" style="-fx-background-color: #ffffff; -fx-border-color: #99c4da;">
+      <JFXTextField fx:id="defectLocationText5" alignment="CENTER" layoutX="460.0" layoutY="680.0" prefHeight="26.0" prefWidth="90.0" style="-fx-background-color: #ffffff; -fx-border-color: #99c4da;">
          <font>
             <Font size="10.0" />
          </font>
@@ -701,7 +701,7 @@
       <Line endX="-100.00000762939453" endY="-22.79998779296875" layoutX="380.0" layoutY="558.0" startX="-100.0" stroke="#99c4da" />
       <Line endX="-100.00000762939453" endY="-22.79998779296875" layoutX="430.0" layoutY="558.0" startX="-100.0" stroke="#99c4da" />
       <Line endX="-100.00000762939453" endY="-22.79998779296875" layoutX="480.0" layoutY="558.0" startX="-100.0" stroke="#99c4da" />
-      <Line endX="-100.00000762939453" endY="-22.79998779296875" layoutX="570.0" layoutY="558.0" startX="-100.0" stroke="#99c4da" />
+      <Line endX="-100.00000762939453" endY="-22.79998779296875" layoutX="560.0" layoutY="558.0" startX="-100.0" stroke="#99c4da" />
       <Line endX="-100.00000762939453" endY="-22.79998779296875" layoutX="650.0" layoutY="558.0" startX="-100.0" stroke="#99c4da" />
       <Line endX="-100.00000762939453" endY="-22.79998779296875" layoutX="570.0" layoutY="728.0" startX="-100.0" stroke="#99c4da" />
       <Line endX="-100.00000762939453" endY="-22.79998779296875" layoutX="440.0" layoutY="728.0" startX="-100.0" stroke="#99c4da" />

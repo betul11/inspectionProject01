@@ -70,36 +70,45 @@ public class editController {
 
         databaseHandler = new databaseHandler();
         editSearchButton.setOnAction(event -> {
-            user.setEmail(editEmailText.getText());
-            userRow = databaseHandler.getUser(user);
+            if(editEmailText.getText().isEmpty()){
+                editEmailText.setStyle("-fx-border-color: red ; -fx-border-width: 1px ; ");
+                editEmailText.setPromptText("Email was not found!");
+                shaker emailShaker = new shaker(editEmailText);
+                emailShaker.shake();
+            }else {
+                user.setEmail(editEmailText.getText());
+                userRow = databaseHandler.getUser(user);
 
-            counter = 0;
+                counter = 0;
 
-            try{
-                while (userRow.next()){
-                    counter++;
-                    String firstname = userRow.getString("firstname");
-                    String lastname = userRow.getString("lastname");
-                    String DOB = userRow.getString("DOB");
-                    String Certificate = userRow.getString("certificateExpiration");
-                    String level = userRow.getString("level");
-                    editFirstnameText.setText(firstname);
-                    editLastnameText.setText(lastname);
-                    editDOBText.setText(DOB);
-                    editCertificateText.setText(Certificate);
-                    editLevelText.setText(level);
+                try {
+                    while (userRow.next()) {
+                        counter++;
+                        String firstname = userRow.getString("firstname");
+                        String lastname = userRow.getString("lastname");
+                        String DOB = userRow.getString("DOB");
+                        String Certificate = userRow.getString("certificateExpiration");
+                        String level = userRow.getString("level");
+                        editFirstnameText.setText(firstname);
+                        editLastnameText.setText(lastname);
+                        editDOBText.setText(DOB);
+                        editCertificateText.setText(Certificate);
+                        editLevelText.setText(level);
+                    }
+                    if (counter == 1) {
+                        wait();
+                    } else {
+
+                        editEmailText.setStyle("-fx-border-color: red ; -fx-border-width: 1px ; ");
+                        editEmailText.setPromptText("Email was not found!");
+                        shaker emailShaker = new shaker(editEmailText);
+                        emailShaker.shake();
+
+                    }
+                } catch (SQLException | InterruptedException e) {
+                    e.printStackTrace();
                 }
-                if(counter==1){
-                    wait();
-                }else{
-                    shaker emailShaker = new shaker(editEmailText);
-                    emailShaker.shake();
-
-                }
-            } catch (SQLException | InterruptedException e){
-                e.printStackTrace();
             }
-
     });
 
 
@@ -111,8 +120,11 @@ public class editController {
                 if(counter==1){
                     updateProfile1();
                 }else{
+
                     shaker emailShaker = new shaker(editEmailText);
                     emailShaker.shake();
+                    editEmailText.setText("");
+
 
                 }
             } catch (SQLException e){

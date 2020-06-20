@@ -11,6 +11,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 import sample.database.databaseHandler;
 import sample.model.customer;
@@ -80,8 +81,10 @@ public class customerController {
    void addJobNo(){
        databaseHandler databaseHandler = new databaseHandler();
        if(customerNameText.getText().isEmpty()) {
-           customerNameText.setPromptText("This field can't be empty!");}
-       else {
+           customerNameText.setPromptText("This field can't be empty!");
+       customerNameText.setStyle("-fx-border-color: red ; -fx-border-width: 1px ; ");
+
+       }else {
            jobOrder jobOrder = new jobOrder(customerNameText.getText(), customerJobOrderText.getText());
            databaseHandler.addJobNo(jobOrder);
            customerJobOrderText.setText(" ");
@@ -93,6 +96,8 @@ public class customerController {
         databaseHandler databaseHandler = new databaseHandler();
         if (customerNameText.getText().isEmpty()) {
             customerNameText.setPromptText("This field can't be empty!");
+            customerNameText.setStyle("-fx-border-color: red ; -fx-border-width: 1px ; ");
+
         } else {
             offerNo offerNo = new offerNo(customerNameText.getText(), customerOfferText.getText());
             databaseHandler.addOffer(offerNo);
@@ -102,6 +107,16 @@ public class customerController {
 
 
    void addCustomer(){
+
+        if(customerAddressText.getText().isEmpty() || customerNameText.getText().isEmpty()){
+
+            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+            errorAlert.setContentText("Please fill the name and address fields !");
+            errorAlert.showAndWait();
+            return;
+
+
+        }
        databaseHandler databaseHandler = new databaseHandler();
 
        customer customer = new customer(customerNameText.getText(), customerAddressText.getText());

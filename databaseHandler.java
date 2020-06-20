@@ -270,19 +270,15 @@ public class databaseHandler extends configs {
         return equipments;
     }
 
-    public ObservableList<customer> getAllCustomers() throws SQLException, ClassNotFoundException {
+    public ObservableList<String> getAllCustomers() throws SQLException, ClassNotFoundException {
         String query = "SELECT * FROM customer ";
         PreparedStatement preparedStatement = getDbConnection().prepareStatement(query);
         ResultSet resultSet = preparedStatement.executeQuery();
 
-        ObservableList<customer> customers = FXCollections.observableArrayList();
+        ObservableList<String> customers = FXCollections.observableArrayList();
         while(resultSet.next()){
 
-            customers.add(new customer(
-                    resultSet.getString("companyName"),
-                    resultSet.getString("address")
-
-            ));
+            customers.add(resultSet.getString("companyName"));
         }
 
         return customers;
@@ -319,7 +315,21 @@ public class databaseHandler extends configs {
 
     }
 
-    public ObservableList<jobOrder> getJobOrders(String companyName) throws SQLException, ClassNotFoundException {
+
+    public String getCompanyAddress(String companyName) throws SQLException, ClassNotFoundException {
+        String query = "SELECT * FROM customer WHERE companyName = ? ";
+        PreparedStatement preparedStatement = getDbConnection().prepareStatement(query);
+        preparedStatement.setString(1,companyName);
+        String address="";
+        ResultSet resultSet = preparedStatement.executeQuery();
+        while(resultSet.next()) {
+             address = resultSet.getString("address");
+        }
+
+      return address;
+    }
+
+    public ObservableList<String> getJobOrders(String companyName) throws SQLException, ClassNotFoundException {
         String query = "SELECT * FROM orderno WHERE company = ? ";
 
         PreparedStatement preparedStatement = getDbConnection().prepareStatement(query);
@@ -327,14 +337,10 @@ public class databaseHandler extends configs {
 
         ResultSet resultSet = preparedStatement.executeQuery();
 
-        ObservableList<jobOrder> jobOrders = FXCollections.observableArrayList();
+        ObservableList<String> jobOrders = FXCollections.observableArrayList();
         while(resultSet.next()){
 
-            jobOrders.add(new jobOrder(
-                    resultSet.getString("company"),
-                    resultSet.getString("orderNo")
-
-            ));
+            jobOrders.add(resultSet.getString("orderNo"));
         }
 
         return jobOrders;
@@ -343,7 +349,7 @@ public class databaseHandler extends configs {
 
     }
 
-    public ObservableList<offerNo> getOfferNos(String companyName) throws SQLException, ClassNotFoundException {
+    public ObservableList<String> getOfferNos(String companyName) throws SQLException, ClassNotFoundException {
         String query = "SELECT * FROM offerno WHERE company = ? ";
 
         PreparedStatement preparedStatement = getDbConnection().prepareStatement(query);
@@ -351,14 +357,13 @@ public class databaseHandler extends configs {
 
         ResultSet resultSet = preparedStatement.executeQuery();
 
-        ObservableList<offerNo> offerNos = FXCollections.observableArrayList();
+        ObservableList<String> offerNos = FXCollections.observableArrayList();
         while(resultSet.next()){
 
-            offerNos.add(new offerNo(
-                    resultSet.getString("company"),
+            offerNos.add(
                     resultSet.getString("offerno")
 
-            ));
+            );
         }
 
         return offerNos;
@@ -422,8 +427,11 @@ public class databaseHandler extends configs {
     public int getNvalue() throws SQLException, ClassNotFoundException {
       String query = "SELECT * FROM counter ORDER BY counter DESC LIMIT 1";
         PreparedStatement preparedStatement = getDbConnection().prepareStatement(query);
+        int n = 0;
         ResultSet resultSet = preparedStatement.executeQuery();
-        int n = resultSet.getInt("counter");
+        while ((resultSet.next())){
+         n = resultSet.getInt("counter");
+        }
         return n;
 
 

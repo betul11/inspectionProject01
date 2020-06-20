@@ -55,6 +55,14 @@ public class deleteProfileController {
             String loginText = deleteEmailText.getText().trim();
 
             user user = new user();
+            if(deleteEmailText.getText().isEmpty()){
+                shaker emailShaker = new shaker(deleteEmailText);
+                emailShaker.shake();
+                deleteEmailText.setText("");
+
+                deleteEmailText.setStyle("-fx-border-color: red ; -fx-border-width: 1px ; ");
+                return;
+            }
             user.setEmail(deleteEmailText.getText());
             ResultSet userRow = databaseHandler.getUser(user);
             int counter = 0;
