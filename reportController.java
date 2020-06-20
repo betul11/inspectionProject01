@@ -529,7 +529,7 @@ public class reportController {
             errorAlert.showAndWait();
             return true;
 
-        }else if ((resultCombo1.getValue()=="RED" && defectType1.getText().isEmpty())|| (resultCombo1.getValue()=="RED"&& defectLocationText1.getText().isEmpty())){
+        }else if ((resultCombo1.getValue().equals("RED") && defectType1.getText().isEmpty())|| (resultCombo1.getValue().equals("RED")&& defectLocationText1.getText().isEmpty())){
             Alert errorAlert = new Alert(Alert.AlertType.ERROR);
             defectType1.setStyle("-fx-border-color: red ; -fx-border-width: 1px ; ");
             defectLocationText1.setStyle("-fx-border-color: red ; -fx-border-width: 1px ; ");
@@ -538,7 +538,7 @@ public class reportController {
             errorAlert.showAndWait();
             return true;
 
-        }else if ((resultCombo2.getValue()=="RED" && defectType2.getText().isEmpty())|| (resultCombo2.getValue()=="RED"&& defectLocationText2.getText().isEmpty())){
+        }else if ((resultCombo2.getValue().equals("RED") && defectType2.getText().isEmpty())|| (resultCombo2.getValue().equals("RED")&& defectLocationText2.getText().isEmpty())){
             Alert errorAlert = new Alert(Alert.AlertType.ERROR);
             defectType2.setStyle("-fx-border-color: red ; -fx-border-width: 1px ; ");
             defectLocationText2.setStyle("-fx-border-color: red ; -fx-border-width: 1px ; ");
@@ -547,7 +547,7 @@ public class reportController {
             return true;
 
         }
-        else if ((resultCombo3.getValue()=="RED" && defectType3.getText().isEmpty())|| (resultCombo3.getValue()=="RED"&& defectLocationText3.getText().isEmpty())){
+        else if ((resultCombo3.getValue().equals("RED") && defectType3.getText().isEmpty())|| (resultCombo3.getValue().equals("RED")&& defectLocationText3.getText().isEmpty())){
             Alert errorAlert = new Alert(Alert.AlertType.ERROR);
             defectType3.setStyle("-fx-border-color: red ; -fx-border-width: 1px ; ");
             defectLocationText3.setStyle("-fx-border-color: red ; -fx-border-width: 1px ; ");
@@ -555,7 +555,7 @@ public class reportController {
             errorAlert.showAndWait();
             return true;
 
-        }else if ((resultCombo4.getValue()=="RED" && defectType4.getText().isEmpty())|| (resultCombo4.getValue()=="RED"&& defectLocationText4.getText().isEmpty())){
+        }else if ((resultCombo4.getValue().equals("RED")&& defectType4.getText().isEmpty())|| (resultCombo4.getValue().equals("RED")&& defectLocationText4.getText().isEmpty())){
             Alert errorAlert = new Alert(Alert.AlertType.ERROR);
             defectType4.setStyle("-fx-border-color: red ; -fx-border-width: 1px ; ");
             defectLocationText4.setStyle("-fx-border-color: red ; -fx-border-width: 1px ; ");
@@ -563,7 +563,7 @@ public class reportController {
             errorAlert.showAndWait();
             return true;
 
-        }else if ((resultCombo5.getValue()=="RED" && defectType5.getText().isEmpty())|| (resultCombo5.getValue()=="RED"&& defectLocationText5.getText().isEmpty())){
+        }else if ((resultCombo5.getValue().equals("RED") && defectType5.getText().isEmpty())|| (resultCombo5.getValue().equals("RED")&& defectLocationText5.getText().isEmpty())){
             Alert errorAlert = new Alert(Alert.AlertType.ERROR);
             defectType5.setStyle("-fx-border-color: red ; -fx-border-width: 1px ; ");
             defectLocationText5.setStyle("-fx-border-color: red ; -fx-border-width: 1px ; ");
