@@ -80,9 +80,12 @@ public class customerController {
 
    void addJobNo(){
        databaseHandler databaseHandler = new databaseHandler();
-       if(customerNameText.getText().isEmpty()) {
+       if(customerNameText.getText().isEmpty()&& customerJobOrderText.getText().isEmpty() ) {
            customerNameText.setPromptText("This field can't be empty!");
        customerNameText.setStyle("-fx-border-color: red ; -fx-border-width: 1px ; ");
+
+           customerJobOrderText.setPromptText("This field can't be empty!");
+           customerJobOrderText.setStyle("-fx-border-color: red ; -fx-border-width: 1px ; ");
        return;
 
        }else if(customerJobOrderText.getText().isEmpty()) {
@@ -90,13 +93,11 @@ public class customerController {
            customerJobOrderText.setStyle("-fx-border-color: red ; -fx-border-width: 1px ; ");
            return;
 
-       }else if(customerJobOrderText.getText().isEmpty() && customerNameText.getText().isEmpty() ){
+       }else if(customerNameText.getText().isEmpty() ){
 
            customerNameText.setPromptText("This field can't be empty!");
            customerNameText.setStyle("-fx-border-color: red ; -fx-border-width: 1px ; ");
 
-           customerJobOrderText.setPromptText("This field can't be empty!");
-           customerJobOrderText.setStyle("-fx-border-color: red ; -fx-border-width: 1px ; ");
            return;
 
        }
@@ -107,9 +108,11 @@ public class customerController {
 
     void addOffer() {
         databaseHandler databaseHandler = new databaseHandler();
-        if (customerNameText.getText().isEmpty()) {
+        if (customerOfferText.getText().isEmpty() && customerNameText.getText().isEmpty()) {
             customerNameText.setPromptText("This field can't be empty!");
             customerNameText.setStyle("-fx-border-color: red ; -fx-border-width: 1px ; ");
+            customerOfferText.setPromptText("This field can't be empty!");
+            customerOfferText.setStyle("-fx-border-color: red ; -fx-border-width: 1px ; ");
             return;
 
         } else if(customerOfferText.getText().isEmpty()) {
@@ -118,9 +121,8 @@ public class customerController {
             return;
 
 
-            }else if(customerOfferText.getText().isEmpty() && customerNameText.getText().isEmpty()){
-            customerOfferText.setPromptText("This field can't be empty!");
-            customerOfferText.setStyle("-fx-border-color: red ; -fx-border-width: 1px ; ");
+            }else if(customerNameText.getText().isEmpty()){
+
             customerNameText.setPromptText("This field can't be empty!");
             customerNameText.setStyle("-fx-border-color: red ; -fx-border-width: 1px ; ");
             return;
